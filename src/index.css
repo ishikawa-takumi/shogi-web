@@ -1,1 +1,113 @@
 @import "tailwindcss";
+
+/* ─── SVG Board Styles ──────────────────────────────────────────────────── */
+
+.board-bg {
+  fill: #d4a76a;
+}
+
+.grid-line {
+  stroke: #8b6914;
+  stroke-width: 0.5;
+}
+
+.star-point {
+  fill: #8b6914;
+}
+
+.coord-label {
+  fill: #78716c;
+  font-family: monospace;
+}
+
+/* Piece styling */
+.sente-piece .piece-shape {
+  fill: #fef3c7;
+  stroke: #92400e;
+  stroke-width: 1;
+}
+
+.gote-piece .piece-shape {
+  fill: #e7e5e4;
+  stroke: #57534e;
+  stroke-width: 1;
+}
+
+.piece-kanji {
+  fill: #1c1917;
+  font-family: serif;
+  pointer-events: none;
+  user-select: none;
+}
+
+.piece-kanji.promoted {
+  fill: #dc2626;
+}
+
+.piece-text {
+  font-family: serif;
+  pointer-events: none;
+}
+
+.sente-piece.piece-text {
+  fill: #1c1917;
+}
+
+.gote-piece.piece-text {
+  fill: #57534e;
+}
+
+.hand-count {
+  fill: #78716c;
+  font-family: sans-serif;
+}
+
+/* Cell highlights */
+.cell-selected {
+  fill: #60a5fa;
+  opacity: 0.3;
+}
+
+.cell-correct-path {
+  fill: #f87171;
+  opacity: 0.25;
+}
+
+/* Legal move indicators */
+.legal-dot {
+  fill: #1c1917;
+  opacity: 0.2;
+}
+
+.legal-capture {
+  fill: none;
+  stroke: #1c1917;
+  stroke-width: 2;
+  opacity: 0.25;
+}
+
+/* Board feedback animations */
+.shogi-board-svg {
+  transition: filter 0.15s ease;
+}
+
+.board-correct {
+  animation: board-pulse-green 0.4s ease;
+}
+
+.board-incorrect {
+  animation: board-shake 0.35s ease;
+}
+
+@keyframes board-pulse-green {
+  0%, 100% { filter: none; }
+  50% { filter: brightness(1.05) hue-rotate(-10deg); }
+}
+
+@keyframes board-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
