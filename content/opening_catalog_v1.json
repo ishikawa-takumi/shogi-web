@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "families": [
+    {
+      "id": "aigakari",
+      "nameJa": "相掛かり",
+      "difficulty": "beginner",
+      "lineIds": [
+        "aigakari-basic"
+      ]
+    },
+    {
+      "id": "yagura",
+      "nameJa": "矢倉",
+      "difficulty": "beginner",
+      "lineIds": [
+        "yagura-rapid"
+      ]
+    },
+    {
+      "id": "gote-structures",
+      "nameJa": "後手の基本受け",
+      "difficulty": "intermediate",
+      "lineIds": [
+        "gote-static-basic"
+      ]
+    },
+    {
+      "id": "tsume",
+      "nameJa": "詰将棋（1手）",
+      "difficulty": "beginner",
+      "lineIds": [
+        "tsume-one-move"
+      ]
+    }
+  ],
+  "lines": [
+    {
+      "id": "aigakari-basic",
+      "familyId": "aigakari",
+      "nameJa": "相掛かり 基本進行",
+      "rootNodeId": "aigakari-n1",
+      "nodeIds": [
+        "aigakari-n1",
+        "aigakari-n2",
+        "aigakari-n3",
+        "aigakari-n4",
+        "aigakari-n5"
+      ]
+    },
+    {
+      "id": "yagura-rapid",
+      "familyId": "yagura",
+      "nameJa": "矢倉 早囲い",
+      "rootNodeId": "yagura-n1",
+      "nodeIds": [
+        "yagura-n1",
+        "yagura-n2",
+        "yagura-n3",
+        "yagura-n4",
+        "yagura-n5"
+      ]
+    },
+    {
+      "id": "gote-static-basic",
+      "familyId": "gote-structures",
+      "nameJa": "後手受けの基本",
+      "rootNodeId": "gote-n1",
+      "nodeIds": [
+        "gote-n1",
+        "gote-n2",
+        "gote-n3",
+        "gote-n4",
+        "gote-n5"
+      ]
+    },
+    {
+      "id": "tsume-one-move",
+      "familyId": "tsume",
+      "nameJa": "1手詰ドリル",
+      "rootNodeId": "tsume-n1",
+      "nodeIds": [
+        "tsume-n1",
+        "tsume-n2",
+        "tsume-n3",
+        "tsume-n4",
+        "tsume-n5",
+        "tsume-n6",
+        "tsume-n7",
+        "tsume-n8",
+        "tsume-n9",
+        "tsume-n10",
+        "tsume-n11",
+        "tsume-n12"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "aigakari-n1",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2g2f"
+      ],
+      "opponentAutoResponseUsi": "8c8d",
+      "nextNodeId": "aigakari-n2",
+      "tags": [
+        "歩交換",
+        "基本"
+      ],
+      "moveIndex": 1
+    },
+    {
+      "id": "aigakari-n2",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2f2e"
+      ],
+      "opponentAutoResponseUsi": "8d8e",
+      "nextNodeId": "aigakari-n3",
+      "tags": [
+        "歩交換",
+        "先手"
+      ],
+      "moveIndex": 2
+    },
+    {
+      "id": "aigakari-n3",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/9/1p5P1/9/PPPPPPP1P/1B5R1/LNSGKGSNL b - 5",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2e2d"
+      ],
+      "opponentAutoResponseUsi": "8e8f",
+      "nextNodeId": "aigakari-n4",
+      "tags": [
+        "歩交換",
+        "テンポ"
+      ],
+      "moveIndex": 3
+    },
+    {
+      "id": "aigakari-n4",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/7P1/9/1p7/PPPPPPP1P/1B5R1/LNSGKGSNL b - 7",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2d2c+"
+      ],
+      "opponentAutoResponseUsi": "8f8g+",
+      "nextNodeId": "aigakari-n5",
+      "tags": [
+        "成り",
+        "速度"
+      ],
+      "moveIndex": 4
+    },
+    {
+      "id": "aigakari-n5",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppp+Pp/9/9/9/P+pPPPPP1P/1B5R1/LNSGKGSNL b - 9",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2c3b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "終盤入口",
+        "寄せ"
+      ],
+      "moveIndex": 5
+    },
+    {
+      "id": "yagura-n1",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7g7f"
+      ],
+      "opponentAutoResponseUsi": "3c3d",
+      "nextNodeId": "yagura-n2",
+      "tags": [
+        "矢倉",
+        "歩"
+      ],
+      "moveIndex": 1
+    },
+    {
+      "id": "yagura-n2",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6g6f"
+      ],
+      "opponentAutoResponseUsi": "8c8d",
+      "nextNodeId": "yagura-n3",
+      "tags": [
+        "矢倉",
+        "組み"
+      ],
+      "moveIndex": 2
+    },
+    {
+      "id": "yagura-n3",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 5",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7i6h"
+      ],
+      "opponentAutoResponseUsi": "4a3b",
+      "nextNodeId": "yagura-n4",
+      "tags": [
+        "玉移動",
+        "安全"
+      ],
+      "moveIndex": 3
+    },
+    {
+      "id": "yagura-n4",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1S3R1/LN1GKGSNL b - 7",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6i7h"
+      ],
+      "opponentAutoResponseUsi": "7a6b",
+      "nextNodeId": "yagura-n5",
+      "tags": [
+        "矢倉",
+        "金"
+      ],
+      "moveIndex": 4
+    },
+    {
+      "id": "yagura-n5",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "ln1gk1snl/1r1s2gb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1BGS3R1/LN2KGSNL b - 9",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5i6i"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "完成",
+        "囲い"
+      ],
+      "moveIndex": 5
+    },
+    {
+      "id": "gote-n1",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "3c3d"
+      ],
+      "opponentAutoResponseUsi": "7g7f",
+      "nextNodeId": "gote-n2",
+      "tags": [
+        "後手",
+        "受け"
+      ],
+      "moveIndex": 1
+    },
+    {
+      "id": "gote-n2",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 4",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "8c8d"
+      ],
+      "opponentAutoResponseUsi": "2g2f",
+      "nextNodeId": "gote-n3",
+      "tags": [
+        "後手",
+        "歩"
+      ],
+      "moveIndex": 2
+    },
+    {
+      "id": "gote-n3",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 6",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "4a3b"
+      ],
+      "opponentAutoResponseUsi": "7i6h",
+      "nextNodeId": "gote-n4",
+      "tags": [
+        "後手",
+        "玉"
+      ],
+      "moveIndex": 3
+    },
+    {
+      "id": "gote-n4",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1B1S3R1/LN1GKGSNL w - 8",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "7a6b"
+      ],
+      "opponentAutoResponseUsi": "6i7h",
+      "nextNodeId": "gote-n5",
+      "tags": [
+        "後手",
+        "囲い"
+      ],
+      "moveIndex": 4
+    },
+    {
+      "id": "gote-n5",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "ln1gk1snl/1r1s2gb1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1BGS3R1/LN2KGSNL w - 10",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "6a7b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "完成",
+        "受け"
+      ],
+      "moveIndex": 5
+    },
+    {
+      "id": "tsume-n1",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4R4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c5b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "飛車"
+      ],
+      "moveIndex": 1
+    },
+    {
+      "id": "tsume-n2",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/9/2R6/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7d7b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "飛車"
+      ],
+      "moveIndex": 2
+    },
+    {
+      "id": "tsume-n3",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/9/5B3/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "4d6b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "角"
+      ],
+      "moveIndex": 3
+    },
+    {
+      "id": "tsume-n4",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/9/3B5/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6d4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "角"
+      ],
+      "moveIndex": 4
+    },
+    {
+      "id": "tsume-n5",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4G4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "金"
+      ],
+      "moveIndex": 5
+    },
+    {
+      "id": "tsume-n6",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4S4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c6b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "銀"
+      ],
+      "moveIndex": 6
+    },
+    {
+      "id": "tsume-n7",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4N4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c6a+"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "桂"
+      ],
+      "moveIndex": 7
+    },
+    {
+      "id": "tsume-n8",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/9/9/4L4/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5e5b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "香"
+      ],
+      "moveIndex": 8
+    },
+    {
+      "id": "tsume-n9",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4P4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c5b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "歩"
+      ],
+      "moveIndex": 9
+    },
+    {
+      "id": "tsume-n10",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4K4/9/9/9/9/9/9 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "玉"
+      ],
+      "moveIndex": 10
+    },
+    {
+      "id": "tsume-n11",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4+P4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "と金"
+      ],
+      "moveIndex": 11
+    },
+    {
+      "id": "tsume-n12",
+      "openingFamilyId": "tsume",
+      "lineId": "tsume-one-move",
+      "sfen": "4k4/9/4+R4/9/9/9/9/9/4K4 b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "1手",
+        "龍"
+      ],
+      "moveIndex": 12
+    }
+  ]
+}
