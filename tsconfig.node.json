@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "codex-plugin.ts"]
+  "include": ["vite.config.ts", "gemini-qa-plugin.ts"]
 }

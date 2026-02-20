@@ -1,5 +1,5 @@
 import type { Plugin } from "vite";
-import { execFile } from "node:child_process";
+import { spawn } from "node:child_process";
 
 interface QARequestBody {
   question: string;
@@ -13,9 +13,9 @@ interface QARequestBody {
   } | null;
 }
 
-export default function codexPlugin(): Plugin {
+export default function geminiQaPlugin(): Plugin {
   return {
-    name: "codex-qa",
+    name: "gemini-qa",
     configureServer(server) {
       server.middlewares.use("/api/qa", (req, res) => {
         if (req.method !== "POST") {
@@ -77,25 +77,30 @@ export default function codexPlugin(): Plugin {
             .filter(Boolean)
             .join("\n");
 
-          const child = execFile(
-            "codex",
-            ["exec", "--model", "gpt-5.3-codex", "--sandbox", "read-only", "--full-auto", "-"],
-            { timeout: 60_000 },
-            (error, stdout, stderr) => {
-              if (error) {
-                res.statusCode = 500;
-                res.setHeader("Content-Type", "application/json");
-                res.end(JSON.stringify({ error: stderr || error.message }));
-                return;
-              }
+          const child = spawn("gemini", [], {
+            stdio: ["pipe", "pipe", "pipe"],
+            timeout: 60_000,
+          });
 
+          let stdout = "";
+          let stderr = "";
+          child.stdout.on("data", (chunk: Buffer) => { stdout += chunk.toString(); });
+          child.stderr.on("data", (chunk: Buffer) => { stderr += chunk.toString(); });
+
+          child.on("close", (code) => {
+            if (code !== 0) {
+              res.statusCode = 500;
               res.setHeader("Content-Type", "application/json");
-              res.end(JSON.stringify({ answer: stdout.trim() }));
-            },
-          );
+              res.end(JSON.stringify({ error: stderr || `gemini exited with code ${code}` }));
+              return;
+            }
 
-          child.stdin?.write(prompt);
-          child.stdin?.end();
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ answer: stdout.trim() }));
+          });
+
+          child.stdin.write(prompt);
+          child.stdin.end();
         });
       });
     },
