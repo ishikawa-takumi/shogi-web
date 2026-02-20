@@ -34,6 +34,7 @@ export type MoveNode = {
   readonly nextNodeId: string | null;
   readonly tags: readonly string[];
   readonly moveIndex: number;
+  readonly teachingComment: string | null;
 };
 
 export type PromptNode = {
@@ -45,6 +46,7 @@ export type PromptNode = {
   readonly expectedMovesUsi: readonly string[];
   readonly tags: readonly string[];
   readonly moveIndex: number;
+  readonly teachingComment: string | null;
 };
 
 export type ContentValidationIssue = {

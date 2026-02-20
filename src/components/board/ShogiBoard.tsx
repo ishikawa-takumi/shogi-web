@@ -261,27 +261,9 @@ export function ShogiBoard({
                 <rect x={x} y={y} width={CELL} height={CELL} className="cell-correct-path" />
               )}
 
-              {/* Clickable area */}
-              <rect
-                x={x} y={y} width={CELL} height={CELL}
-                fill="transparent"
-                data-row={dr}
-                data-col={dc}
-                onClick={handleClick}
-                style={{ cursor: "pointer" }}
-              />
-
-              {/* Legal move dot */}
-              {isLegal && !sq && (
-                <circle cx={cx} cy={cy} r={7} className="legal-dot" />
-              )}
-              {isLegal && sq && (
-                <circle cx={cx} cy={cy} r={CELL / 2 - 2} className="legal-capture" />
-              )}
-
-              {/* Piece */}
+              {/* Piece (rendered before click target so it doesn't steal events) */}
               {sq && (
-                <g className={`piece ${sq.owner === "gote" ? "gote-piece" : "sente-piece"}`}>
+                <g className={`piece ${sq.owner === "gote" ? "gote-piece" : "sente-piece"}`} style={{ pointerEvents: "none" }}>
                   <path
                     d={pentagonPath(cx, cy, CELL, sq.owner === "gote")}
                     className="piece-shape"
@@ -298,6 +280,24 @@ export function ShogiBoard({
                   </text>
                 </g>
               )}
+
+              {/* Legal move dot */}
+              {isLegal && !sq && (
+                <circle cx={cx} cy={cy} r={7} className="legal-dot" style={{ pointerEvents: "none" }} />
+              )}
+              {isLegal && sq && (
+                <circle cx={cx} cy={cy} r={CELL / 2 - 2} className="legal-capture" style={{ pointerEvents: "none" }} />
+              )}
+
+              {/* Clickable area — LAST so it's on top of everything and receives all clicks */}
+              <rect
+                x={x} y={y} width={CELL} height={CELL}
+                fill="transparent"
+                data-row={dr}
+                data-col={dc}
+                onClick={handleClick}
+                style={{ cursor: "pointer" }}
+              />
             </g>
           );
         }),

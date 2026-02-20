@@ -6,6 +6,7 @@ type Props = {
   readonly onSave: (patch: Partial<UserSettings>) => Promise<void>;
   readonly onExport: () => Promise<ExportBlob>;
   readonly onImport: (blob: ExportBlob) => Promise<void>;
+  readonly onReset: () => Promise<void>;
 };
 
 const DAILY_TARGETS = [10, 20, 30] as const;
@@ -15,7 +16,7 @@ const SIDE_OPTIONS: { value: SidePreference; label: string }[] = [
   { value: "gote", label: "後手のみ" },
 ];
 
-export function SettingsScreen({ settings, onSave, onExport, onImport }: Props) {
+export function SettingsScreen({ settings, onSave, onExport, onImport, onReset }: Props) {
   const [dailyTarget, setDailyTarget] = useState(settings.dailyTarget);
   const [sidePreference, setSidePreference] = useState(settings.sidePreference);
   const [message, setMessage] = useState<string | null>(null);
@@ -39,6 +40,17 @@ export function SettingsScreen({ settings, onSave, onExport, onImport }: Props) 
       setMessage("エクスポートしました。");
     } catch {
       setMessage("エクスポートに失敗しました。");
+    }
+    setTimeout(() => setMessage(null), 2000);
+  }
+
+  async function handleReset() {
+    if (!window.confirm("学習データをすべて削除しますか？この操作は元に戻せません。")) return;
+    try {
+      await onReset();
+      setMessage("データをリセットしました。");
+    } catch {
+      setMessage("リセットに失敗しました。");
     }
     setTimeout(() => setMessage(null), 2000);
   }
@@ -130,6 +142,12 @@ export function SettingsScreen({ settings, onSave, onExport, onImport }: Props) 
             <input type="file" accept=".json" onChange={handleImport} className="hidden" />
           </label>
         </div>
+        <button
+          onClick={handleReset}
+          className="mt-3 w-full rounded-lg border border-red-300 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+        >
+          データをリセット
+        </button>
       </div>
     </div>
   );

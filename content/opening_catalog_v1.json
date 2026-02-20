@@ -111,7 +111,8 @@
         "歩交換",
         "基本"
       ],
-      "moveIndex": 1
+      "moveIndex": 1,
+      "teachingComment": "２六歩 — 飛車先の歩を突く。飛車の通り道を開けて攻めの起点を作る、相掛かりの第一歩。"
     },
     {
       "id": "aigakari-n2",
@@ -128,7 +129,8 @@
         "歩交換",
         "先手"
       ],
-      "moveIndex": 2
+      "moveIndex": 2,
+      "teachingComment": "２五歩 — さらに飛車先を伸ばす。相手の８筋と同形で歩交換を目指す積極的な手。"
     },
     {
       "id": "aigakari-n3",
@@ -145,7 +147,8 @@
         "歩交換",
         "テンポ"
       ],
-      "moveIndex": 3
+      "moveIndex": 3,
+      "teachingComment": "２四歩 — 歩の交換を仕掛ける。歩を取らせて飛車筋を通す狙い。"
     },
     {
       "id": "aigakari-n4",
@@ -162,7 +165,8 @@
         "成り",
         "速度"
       ],
-      "moveIndex": 4
+      "moveIndex": 4,
+      "teachingComment": "２三歩成 — 敵陣で歩を成って「と金」を作る。と金は金と同じ動きで攻めの要になる。"
     },
     {
       "id": "aigakari-n5",
@@ -179,7 +183,8 @@
         "終盤入口",
         "寄せ"
       ],
-      "moveIndex": 5
+      "moveIndex": 5,
+      "teachingComment": "と金で銀を攻める。守り駒を剥がして玉の囲いを崩す寄せの手筋。"
     },
     {
       "id": "yagura-n1",
@@ -196,7 +201,8 @@
         "矢倉",
         "歩"
       ],
-      "moveIndex": 1
+      "moveIndex": 1,
+      "teachingComment": "７六歩 — 角道を開ける。矢倉戦法の第一歩で、角の利きを盤面に通す。"
     },
     {
       "id": "yagura-n2",
@@ -213,7 +219,8 @@
         "矢倉",
         "組み"
       ],
-      "moveIndex": 2
+      "moveIndex": 2,
+      "teachingComment": "６六歩 — 角道を止めつつ銀の進出路を作る。矢倉の形を整える重要な一手。"
     },
     {
       "id": "yagura-n3",
@@ -230,7 +237,8 @@
         "玉移動",
         "安全"
       ],
-      "moveIndex": 3
+      "moveIndex": 3,
+      "teachingComment": "６八銀 — 銀を中央に上がる。矢倉囲いの壁となる大事な一手。"
     },
     {
       "id": "yagura-n4",
@@ -247,7 +255,8 @@
         "矢倉",
         "金"
       ],
-      "moveIndex": 4
+      "moveIndex": 4,
+      "teachingComment": "７八金 — 金を銀の隣に寄せて矢倉の骨格を完成させる。玉を守る壁を作る。"
     },
     {
       "id": "yagura-n5",
@@ -264,7 +273,8 @@
         "完成",
         "囲い"
       ],
-      "moveIndex": 5
+      "moveIndex": 5,
+      "teachingComment": "６九玉 — 玉を矢倉に入れる。金銀の壁の内側で安全になり、攻めに集中できる。"
     },
     {
       "id": "gote-n1",
@@ -281,7 +291,8 @@
         "後手",
         "受け"
       ],
-      "moveIndex": 1
+      "moveIndex": 1,
+      "teachingComment": "３四歩 — 角道を開ける。後手番でも積極的に指す基本の第一手。"
     },
     {
       "id": "gote-n2",
@@ -298,7 +309,8 @@
         "後手",
         "歩"
       ],
-      "moveIndex": 2
+      "moveIndex": 2,
+      "teachingComment": "８四歩 — 飛車先の歩を突く。先手の２筋と同様に飛車の活用を図る。"
     },
     {
       "id": "gote-n3",
@@ -315,7 +327,8 @@
         "後手",
         "玉"
       ],
-      "moveIndex": 3
+      "moveIndex": 3,
+      "teachingComment": "３二金 — 金を上がって角頭の３三を守る。後手の受けの定跡形。"
     },
     {
       "id": "gote-n4",
@@ -332,7 +345,8 @@
         "後手",
         "囲い"
       ],
-      "moveIndex": 4
+      "moveIndex": 4,
+      "teachingComment": "６二銀 — 銀を活用して囲いの準備。玉の周りを固める守りの一手。"
     },
     {
       "id": "gote-n5",
@@ -349,7 +363,8 @@
         "完成",
         "受け"
       ],
-      "moveIndex": 5
+      "moveIndex": 5,
+      "teachingComment": "７二金 — 金を上がって玉の守りを厚くする。矢倉模様の囲いが完成する。"
     },
     {
       "id": "tsume-n1",
@@ -367,7 +382,8 @@
         "1手",
         "飛車"
       ],
-      "moveIndex": 1
+      "moveIndex": 1,
+      "teachingComment": "飛車を一段目に寄せて王手。飛車の縦横の利きで玉の逃げ場を塞ぐ。"
     },
     {
       "id": "tsume-n2",
@@ -385,7 +401,8 @@
         "1手",
         "飛車"
       ],
-      "moveIndex": 2
+      "moveIndex": 2,
+      "teachingComment": "飛車の横利きで玉に迫る。離れた位置から王手をかけて逃げ道を封鎖する。"
     },
     {
       "id": "tsume-n3",
@@ -403,7 +420,8 @@
         "1手",
         "角"
       ],
-      "moveIndex": 3
+      "moveIndex": 3,
+      "teachingComment": "角の斜めの利きで王手。玉の斜め前に飛び込んで逃げ道を制限する。"
     },
     {
       "id": "tsume-n4",
@@ -421,7 +439,8 @@
         "1手",
         "角"
       ],
-      "moveIndex": 4
+      "moveIndex": 4,
+      "teachingComment": "角の長い利きを活かした王手。逆方向の斜めから玉を追い詰める。"
     },
     {
       "id": "tsume-n5",
@@ -439,7 +458,8 @@
         "1手",
         "金"
       ],
-      "moveIndex": 5
+      "moveIndex": 5,
+      "teachingComment": "金で斜め前に王手。金は前方と横に利くので、玉の退路を広く塞げる。"
     },
     {
       "id": "tsume-n6",
@@ -457,7 +477,8 @@
         "1手",
         "銀"
       ],
-      "moveIndex": 6
+      "moveIndex": 6,
+      "teachingComment": "銀の斜め前への王手。銀は前方3マスと後方斜めに利くので、金とは違う角度から迫る。"
     },
     {
       "id": "tsume-n7",
@@ -475,7 +496,8 @@
         "1手",
         "桂"
       ],
-      "moveIndex": 7
+      "moveIndex": 7,
+      "teachingComment": "桂馬の跳躍で王手し、成って金の動きを得る。桂成りは詰みの重要な手筋。"
     },
     {
       "id": "tsume-n8",
@@ -493,7 +515,8 @@
         "1手",
         "香"
       ],
-      "moveIndex": 8
+      "moveIndex": 8,
+      "teachingComment": "香車を真っ直ぐ走らせて王手。香車は前方にしか進めないが、直線の利きが強力。"
     },
     {
       "id": "tsume-n9",
@@ -511,7 +534,8 @@
         "1手",
         "歩"
       ],
-      "moveIndex": 9
+      "moveIndex": 9,
+      "teachingComment": "歩で真上から王手。最も安い駒でも、玉の目の前に進めば詰ませられる。"
     },
     {
       "id": "tsume-n10",
@@ -529,7 +553,8 @@
         "1手",
         "玉"
       ],
-      "moveIndex": 10
+      "moveIndex": 10,
+      "teachingComment": "玉で直接王手。玉同士は隣接できないので、斜めに迫って退路を奪う。"
     },
     {
       "id": "tsume-n11",
@@ -547,7 +572,8 @@
         "1手",
         "と金"
       ],
-      "moveIndex": 11
+      "moveIndex": 11,
+      "teachingComment": "と金で王手。と金は金と同じ動きなので、前方と横を広く制圧できる。"
     },
     {
       "id": "tsume-n12",
@@ -565,7 +591,8 @@
         "1手",
         "龍"
       ],
-      "moveIndex": 12
+      "moveIndex": 12,
+      "teachingComment": "龍（成飛車）で王手。飛車の縦横に加え斜めにも利くので、最強の攻め駒。"
     }
   ]
 }

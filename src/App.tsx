@@ -61,13 +61,13 @@ export default function App() {
     const cardMap = new Map(cards.map((c) => [c.nodeId, c]));
 
     const dueIds: string[] = [];
-    const newIds: string[] = [];
+    const rawNewIds: string[] = [];
     const mistakeIds: string[] = [];
 
     for (const node of eligible) {
       const card = cardMap.get(node.id);
       if (!card) {
-        newIds.push(node.id);
+        rawNewIds.push(node.id);
         continue;
       }
       if (card.lastResult === "incorrect") {
@@ -75,6 +75,21 @@ export default function App() {
       }
       if (new Date(card.dueAt) <= now) {
         dueIds.push(node.id);
+      }
+    }
+
+    // For sequential opening lines, only include a new node if its predecessor
+    // has been seen before or is already in this session's queue.
+    // This prevents showing yagura move 3 before the user has learned moves 1-2.
+    // Standalone puzzles (tsume) have no nextNodeId links, so they pass through.
+    const inQueue = new Set([...dueIds, ...mistakeIds]);
+    const newIds: string[] = [];
+
+    for (const id of rawNewIds) {
+      const predecessor = allNodes.find((n) => n.nextNodeId === id);
+      if (!predecessor || cardMap.has(predecessor.id) || inQueue.has(predecessor.id)) {
+        newIds.push(id);
+        inQueue.add(id);
       }
     }
 
@@ -112,10 +127,6 @@ export default function App() {
     await useReviewStore.getState().upsert(card);
   }, []);
 
-  const getReviewCard = useCallback((nodeId: string) => {
-    return useReviewStore.getState().cards.find((c) => c.nodeId === nodeId);
-  }, []);
-
   const handleExport = useCallback(async () => {
     return exportProgress(useSettingsStore.getState().settings);
   }, []);
@@ -131,6 +142,14 @@ export default function App() {
 
   const handleSaveSettings = useCallback(async (patch: Partial<typeof settings.settings>) => {
     await useSettingsStore.getState().update(patch);
+  }, []);
+
+  const handleReset = useCallback(async () => {
+    const familyIds = useCatalogStore.getState().allFamilyIds;
+    await review.reset();
+    await settings.load(familyIds);
+    const families = useCatalogStore.getState().cache?.catalog.families ?? [];
+    await dashboard.compute(useReviewStore.getState().cards, [...families]);
   }, []);
 
   // ─── Loading / Error states ────────────────────────────────────────────
@@ -174,7 +193,6 @@ export default function App() {
           onSaveCard={handleSaveCard}
           onAdvance={handleAdvance}
           onSessionEnd={handleSessionEnd}
-          getReviewCard={getReviewCard}
           sessionQueue={session.queue}
           currentIndex={session.currentIndex}
           reviewedCount={session.reviewedCount}
@@ -190,6 +208,7 @@ export default function App() {
           onSave={handleSaveSettings}
           onExport={handleExport}
           onImport={handleImport}
+          onReset={handleReset}
         />
       )}
     </div>

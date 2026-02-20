@@ -1,15 +1,14 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import type { PromptNode, ReviewCard, Coord, MoveResult } from "../types/index.ts";
 import { parseSfen } from "../engine/sfen.ts";
 import { legalDestinations, canPromote, mustPromote, normalizeUsiMove } from "../engine/move-validation.ts";
 import { buildHintLadder } from "../engine/hints.ts";
 import { ShogiBoard } from "../components/board/ShogiBoard.tsx";
 import { CoachPanel } from "../components/training/CoachPanel.tsx";
+import { QAChat } from "../components/training/QAChat.tsx";
 import { SessionProgress } from "../components/training/SessionProgress.tsx";
 import { SessionSummary } from "../components/training/SessionSummary.tsx";
 import { coordToUsi } from "../utils/coord.ts";
-
-const AUTO_ADVANCE_DELAY_MS = 800;
 
 type Props = {
   readonly prompt: PromptNode | null;
@@ -17,7 +16,6 @@ type Props = {
   readonly onSaveCard: (card: ReviewCard) => Promise<void>;
   readonly onAdvance: () => PromptNode | null;
   readonly onSessionEnd: () => void;
-  readonly getReviewCard: (nodeId: string) => ReviewCard | undefined;
   readonly sessionQueue: readonly string[];
   readonly currentIndex: number;
   readonly reviewedCount: number;
@@ -30,7 +28,6 @@ export function TrainingScreen({
   onSaveCard,
   onAdvance,
   onSessionEnd,
-  getReviewCard,
   sessionQueue,
   currentIndex,
   reviewedCount,
@@ -40,8 +37,7 @@ export function TrainingScreen({
   const [feedback, setFeedback] = useState<string | null>(null);
   const [feedbackType, setFeedbackType] = useState<"success" | "error" | "info" | null>(null);
   const [sessionCompleted, setSessionCompleted] = useState(false);
-  const [awaitingAdvance, setAwaitingAdvance] = useState(false);
-  const advanceTimerRef = useRef<number | null>(null);
+  const [previousComment, setPreviousComment] = useState<string | null>(null);
 
   const parsed = useMemo(() => (prompt ? parseSfen(prompt.sfen) : null), [prompt?.sfen]);
   const orientation = prompt?.sideToMove === "gote" ? "gote" as const : "sente" as const;
@@ -53,31 +49,18 @@ export function TrainingScreen({
 
   const hintLadder = useMemo(() => (prompt ? buildHintLadder(prompt) : null), [prompt]);
 
-  useEffect(() => {
-    return () => {
-      if (advanceTimerRef.current !== null) {
-        window.clearTimeout(advanceTimerRef.current);
-      }
-    };
-  }, []);
-
-  // Reset selection when prompt changes
+  // Reset selection when prompt changes (previousComment intentionally preserved)
   useEffect(() => {
     setSelectedFrom(null);
     setFeedback(null);
     setFeedbackType(null);
-    setAwaitingAdvance(false);
   }, [prompt?.nodeId]);
 
   const handleCellClick = useCallback(
     (row: number, col: number) => {
       if (!prompt || !parsed || sessionCompleted) return;
 
-      if (awaitingAdvance) {
-        setFeedback("結果を表示中です。少し待つと自動で次の問題へ進みます。");
-        setFeedbackType("info");
-        return;
-      }
+      if (previousComment) setPreviousComment(null);
 
       const clicked: Coord = { row, col };
       const square = parsed.board[row]?.[col] ?? null;
@@ -149,13 +132,13 @@ export function TrainingScreen({
       const usiMove = promote ? `${baseMove}+` : baseMove;
       executeMove(usiMove);
     },
-    [prompt, parsed, selectedFrom, legalTargets, sessionCompleted, awaitingAdvance],
+    [prompt, parsed, selectedFrom, legalTargets, sessionCompleted, previousComment],
   );
 
   function executeMove(usi: string) {
     if (!prompt) return;
 
-    const existingCard = getReviewCard(prompt.nodeId);
+    setPreviousComment(null);
     const result = onSubmitMove(usi);
 
     if (result.invalidInput) {
@@ -169,8 +152,6 @@ export function TrainingScreen({
     void onSaveCard(result.reviewCardUpdate);
 
     if (result.isCorrect) {
-      setFeedback("正解です。次へ進みます。");
-      setFeedbackType("success");
       setSelectedFrom(null);
 
       if (result.sessionCompleted) {
@@ -178,11 +159,9 @@ export function TrainingScreen({
         return;
       }
 
-      // Auto-advance after delay
-      setAwaitingAdvance(true);
-      advanceTimerRef.current = window.setTimeout(() => {
-        advanceToNext();
-      }, AUTO_ADVANCE_DELAY_MS);
+      // Store teaching comment, then immediately advance to next problem
+      setPreviousComment(prompt.teachingComment);
+      onAdvance();
     } else {
       setFeedback(`不正解です。正解は ${result.expectedUsi} です。もう一度解いてください。`);
       setFeedbackType("error");
@@ -190,21 +169,7 @@ export function TrainingScreen({
     }
   }
 
-  function advanceToNext() {
-    if (advanceTimerRef.current !== null) {
-      window.clearTimeout(advanceTimerRef.current);
-      advanceTimerRef.current = null;
-    }
-    setAwaitingAdvance(false);
-    onAdvance();
-  }
-
   function handleManualMove(usi: string) {
-    if (awaitingAdvance) {
-      setFeedback("結果を表示中です。少し待つと自動で次の問題へ進みます。");
-      setFeedbackType("info");
-      return;
-    }
     executeMove(usi);
   }
 
@@ -256,24 +221,32 @@ export function TrainingScreen({
         feedbackType={feedbackType === "success" || feedbackType === "error" ? feedbackType : null}
       />
 
+      {/* Previous answer explanation */}
+      {previousComment && (
+        <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
+          <span className="flex-1">
+            <span className="font-medium">正解！</span> {previousComment}
+          </span>
+          <button
+            onClick={() => setPreviousComment(null)}
+            className="shrink-0 text-amber-400 hover:text-amber-600"
+          >
+            &times;
+          </button>
+        </div>
+      )}
+
       {/* Coach panel */}
       <CoachPanel
         hintLadder={hintLadder}
         feedback={feedback}
         feedbackType={feedbackType}
         onSubmitManualMove={handleManualMove}
-        disabled={sessionCompleted || awaitingAdvance}
+        disabled={sessionCompleted}
       />
 
-      {/* Skip button during auto-advance */}
-      {awaitingAdvance && (
-        <button
-          onClick={advanceToNext}
-          className="w-full rounded-lg border border-stone-200 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors"
-        >
-          次へ進む
-        </button>
-      )}
+      {/* Q&A chat */}
+      <QAChat prompt={prompt} />
     </div>
   );
 }

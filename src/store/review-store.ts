@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { ReviewCard } from "../types/index.ts";
-import { listReviewCards, upsertReviewCard } from "../db/review-cards.ts";
+import { listReviewCards, upsertReviewCard, clearReviewCards } from "../db/review-cards.ts";
+import { clearSessionHistory } from "../db/session-history.ts";
 
 type ReviewState = {
   readonly cards: readonly ReviewCard[];
@@ -10,6 +11,7 @@ type ReviewState = {
 type ReviewActions = {
   readonly load: () => Promise<void>;
   readonly upsert: (card: ReviewCard) => Promise<void>;
+  readonly reset: () => Promise<void>;
   readonly isDue: (nodeId: string, now?: Date) => boolean;
   readonly dueCards: () => ReviewCard[];
   readonly masteredCount: () => number;
@@ -22,6 +24,12 @@ export const useReviewStore = create<ReviewState & ReviewActions>((set, get) => 
   load: async () => {
     const cards = await listReviewCards();
     set({ cards, loaded: true });
+  },
+
+  reset: async () => {
+    await clearReviewCards();
+    await clearSessionHistory();
+    set({ cards: [], loaded: true });
   },
 
   upsert: async (card) => {

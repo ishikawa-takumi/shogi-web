@@ -72,27 +72,43 @@ export const useSessionStore = create<SessionState & SessionActions>((set, get) 
     const card = existingCard ?? makeNewCard(prompt);
     const updatedCard = updateReviewCard(card, isCorrect, now);
 
-    const newReviewedCount = state.reviewedCount + 1;
-    const newCorrectCount = state.correctCount + (isCorrect ? 1 : 0);
     const newMistakes = isCorrect
       ? state.mistakes
       : [...state.mistakes, prompt.nodeId];
-    const sessionCompleted = state.currentIndex >= state.queue.length - 1;
 
-    set({
-      reviewedCount: newReviewedCount,
-      correctCount: newCorrectCount,
-      mistakes: newMistakes,
-      active: !sessionCompleted,
-    });
+    if (isCorrect) {
+      const newReviewedCount = state.reviewedCount + 1;
+      const sessionCompleted = state.currentIndex >= state.queue.length - 1;
+
+      set({
+        reviewedCount: newReviewedCount,
+        correctCount: state.correctCount + 1,
+        mistakes: newMistakes,
+        active: !sessionCompleted,
+      });
+
+      return {
+        isCorrect: true,
+        expectedUsi: prompt.expectedMovesUsi[0] ?? "",
+        nextPromptNodeId: null,
+        reviewCardUpdate: updatedCard,
+        sessionCompleted,
+        completedCards: newReviewedCount,
+        totalCards: state.queue.length,
+        invalidInput: false,
+      };
+    }
+
+    // Incorrect: don't advance reviewedCount or currentIndex
+    set({ mistakes: newMistakes });
 
     return {
-      isCorrect,
+      isCorrect: false,
       expectedUsi: prompt.expectedMovesUsi[0] ?? "",
       nextPromptNodeId: null,
       reviewCardUpdate: updatedCard,
-      sessionCompleted,
-      completedCards: newReviewedCount,
+      sessionCompleted: false,
+      completedCards: state.reviewedCount,
       totalCards: state.queue.length,
       invalidInput: false,
     };

@@ -52,6 +52,7 @@ export function buildPromptNode(
     expectedMovesUsi: node.expectedMovesUsi,
     tags: node.tags,
     moveIndex: node.moveIndex,
+    teachingComment: node.teachingComment ?? null,
   };
 }
 
