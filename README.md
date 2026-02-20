@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Shogi Web Trainer (将棋ウェブトレーナー)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive browser-based shogi opening trainer that uses spaced repetition to help beginners learn opening moves, castle formations, and basic tsume (checkmate) puzzles.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Opening training** — step through 相掛かり (Aigakari), 矢倉 (Yagura), and 後手 (Gote) opening sequences
+- **Tsume puzzles** — 1-move checkmate problems using all piece types
+- **Spaced repetition** — SRS algorithm schedules reviews based on your accuracy
+- **Interactive SVG board** — click-to-move with legal move hints and promotion prompts
+- **Teaching comments** — Japanese explanations shown after each correct answer
+- **AI Q&A** — ask questions about the current position (dev server only, requires Codex CLI)
+- **Progress tracking** — dashboard with mastery bars, streaks, and rank progression
+- **Offline-first** — all data stored in IndexedDB via Dexie
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open `http://localhost:5173` in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start Vite dev server with HMR |
+| `npm run build` | Type-check (`tsc -b`) + production build |
+| `npm run lint` | Run ESLint |
+| `npx vitest run` | Run test suite |
+| `npx vitest` | Run tests in watch mode |
+
+## Tech Stack
+
+- React 19 + TypeScript 5.9
+- Vite 7
+- Tailwind CSS 4
+- Zustand 5 (state management)
+- Dexie 4 (IndexedDB)
+- Vitest 4 (testing)
+
+## Project Structure
+
 ```
+src/
+├── components/     UI components (board, training widgets, layout)
+├── screens/        Top-level screen views
+├── store/          Zustand stores (catalog, review, session, settings, dashboard)
+├── db/             Dexie schema and per-table data access
+├── engine/         Pure logic (SRS, SFEN parsing, move validation, hints)
+├── types/          TypeScript type definitions
+└── utils/          Coordinate conversion, date helpers, piece labels
+
+content/            Static opening catalog (JSON)
+tests/              Unit tests for engine modules
+```
+
+## License
+
+Private project.
