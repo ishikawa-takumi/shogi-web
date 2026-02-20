@@ -41,6 +41,8 @@ export function QAChat({ prompt }: Props) {
         sideToMove: prompt.sideToMove,
         tags: prompt.tags,
         moveIndex: prompt.moveIndex,
+        expectedMovesUsi: prompt.expectedMovesUsi,
+        teachingComment: prompt.teachingComment,
       };
 
       const res = await fetch("/api/qa", {

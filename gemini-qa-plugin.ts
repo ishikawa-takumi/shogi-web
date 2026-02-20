@@ -10,6 +10,8 @@ interface QARequestBody {
     sideToMove: "sente" | "gote";
     tags: readonly string[];
     moveIndex: number;
+    expectedMovesUsi: readonly string[];
+    teachingComment: string | null;
   } | null;
 }
 
@@ -56,9 +58,13 @@ export default function geminiQaPlugin(): Plugin {
               `定跡: ${boardContext.openingName}`,
               `手番: ${boardContext.sideToMove === "sente" ? "先手" : "後手"}`,
               `手数: ${boardContext.moveIndex}`,
+              `正解手: ${boardContext.expectedMovesUsi.join(", ")}`,
             );
             if (boardContext.tags.length > 0) {
               systemLines.push(`タグ: ${boardContext.tags.join(", ")}`);
+            }
+            if (boardContext.teachingComment) {
+              systemLines.push(`解説: ${boardContext.teachingComment}`);
             }
           }
 
