@@ -4,7 +4,7 @@ Run the full verification suite and report results.
 
 TypeScript:
 ```
-$(cd /Users/takumiishikawa/work/shogi-web && tsc --noEmit 2>&1 | tail -20)
+$(cd /Users/takumiishikawa/work/shogi-web && npx tsc --noEmit -p tsconfig.app.json 2>&1 | tail -20)
 ```
 
 Lint:

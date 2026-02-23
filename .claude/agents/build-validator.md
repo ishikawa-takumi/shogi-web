@@ -6,7 +6,7 @@ You validate that the project builds cleanly and all checks pass. Run every chec
 
 ### 1. TypeScript
 ```bash
-tsc --noEmit 2>&1
+npx tsc --noEmit -p tsconfig.app.json 2>&1
 ```
 Report every error with file:line.
 

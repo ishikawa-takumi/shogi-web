@@ -15,7 +15,7 @@
       "Bash(git show*)",
       "Bash(git rev-parse*)",
       "Bash(ls *)",
-      "Bash(tsc --noEmit*)",
+      "Bash(npx tsc --noEmit -p tsconfig.app.json*)",
       "Bash(curl -s http://localhost*)",
       "Bash(python3 -c *)",
       "Bash(node -e *)"
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /Users/takumiishikawa/work/shogi-web && echo '--- typecheck ---' && tsc --noEmit 2>&1 | tail -5 && echo '--- lint ---' && npm run lint 2>&1 | tail -5 && echo '--- tests ---' && npx vitest run 2>&1 | tail -10 && echo '--- console.log check ---' && git diff --name-only 2>/dev/null | xargs grep -l 'console\\.log' 2>/dev/null || echo 'none'",
+            "command": "cd /Users/takumiishikawa/work/shogi-web && echo '--- typecheck ---' && npx tsc --noEmit -p tsconfig.app.json 2>&1 | tail -5 && echo '--- lint ---' && npm run lint 2>&1 | tail -5 && echo '--- tests ---' && npx vitest run 2>&1 | tail -10 && echo '--- console.log check ---' && git diff --name-only 2>/dev/null | xargs grep -l 'console\\.log' 2>/dev/null || echo 'none'",
             "timeout": 60000
           }
         ]
