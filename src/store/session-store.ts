@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { ReviewCard, PromptNode, MoveResult } from "../types/index.ts";
-import { updateReviewCard, composeMistakeFirstQueue } from "../engine/srs.ts";
+import { updateReviewCard } from "../engine/srs.ts";
 import { normalizeUsiMove, isValidUsiMove } from "../engine/move-validation.ts";
 
 type SessionState = {

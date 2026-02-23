@@ -29,7 +29,6 @@ export function TrainingScreen({
   onAdvance,
   onSessionEnd,
   sessionQueue,
-  currentIndex,
   reviewedCount,
   correctCount,
 }: Props) {

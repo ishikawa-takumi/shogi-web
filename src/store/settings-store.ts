@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { UserSettings, SidePreference } from "../types/index.ts";
-import { getOrCreateSettings, saveSettings, defaultSettings } from "../db/settings.ts";
+import type { UserSettings } from "../types/index.ts";
+import { getOrCreateSettings, saveSettings } from "../db/settings.ts";
 
 type SettingsState = {
   readonly settings: UserSettings;

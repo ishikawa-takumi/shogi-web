@@ -1,4 +1,4 @@
-import { useMemo, useCallback, type MouseEvent } from "react";
+import { useMemo, useCallback, type MouseEvent, type JSX } from "react";
 import type { Square, Coord, Owner, ParsedSfen } from "../../types/index.ts";
 
 // ─── Layout constants ──────────────────────────────────────────────────────
@@ -59,7 +59,6 @@ function pentagonPath(cx: number, cy: number, size: number, isGote: boolean): st
   const midY = cy - s * 0.3;
   const botY = cy + s * 1.0;
   const halfW = s * 0.85;
-  const topHalfW = s * 0.15;
 
   const points = [
     [cx, topY],

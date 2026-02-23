@@ -99,7 +99,7 @@ export default function App() {
   }, []);
 
   const handleSessionEnd = useCallback(async () => {
-    const { reviewedCount, correctCount, active } = useSessionStore.getState();
+    const { reviewedCount, correctCount } = useSessionStore.getState();
     if (reviewedCount > 0) {
       await appendSessionHistory(todayString(), reviewedCount, correctCount);
     }

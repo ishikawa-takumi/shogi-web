@@ -1,4 +1,4 @@
-import type { OpeningCatalog, OpeningFamily } from "../types/index.ts";
+import type { OpeningCatalog } from "../types/index.ts";
 
 type Props = {
   readonly catalog: OpeningCatalog | null;

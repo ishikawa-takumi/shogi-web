@@ -1,4 +1,4 @@
-import type { Coord, HintLadder, HintLevel, PromptNode, Square } from "../types/index.ts";
+import type { Coord, HintLadder, HintLevel, PromptNode } from "../types/index.ts";
 import { usiSquareToCoord } from "../utils/coord.ts";
 import { pieceToJapanese } from "../utils/piece-labels.ts";
 
