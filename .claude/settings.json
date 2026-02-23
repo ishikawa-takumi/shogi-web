@@ -12,8 +12,13 @@
       "Bash(git branch*)",
       "Bash(git stash*)",
       "Bash(git add *)",
+      "Bash(git show*)",
+      "Bash(git rev-parse*)",
       "Bash(ls *)",
-      "Bash(tsc --noEmit*)"
+      "Bash(tsc --noEmit*)",
+      "Bash(curl -s http://localhost*)",
+      "Bash(python3 -c *)",
+      "Bash(node -e *)"
     ]
   },
   "hooks": {
@@ -34,8 +39,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /Users/takumiishikawa/work/shogi-web && echo '--- typecheck ---' && tsc --noEmit 2>&1 | tail -5 && echo '--- modified files with console.log ---' && git diff --name-only 2>/dev/null | xargs grep -l 'console\\.log' 2>/dev/null || echo 'none'",
-            "timeout": 30000
+            "command": "cd /Users/takumiishikawa/work/shogi-web && echo '--- typecheck ---' && tsc --noEmit 2>&1 | tail -5 && echo '--- lint ---' && npm run lint 2>&1 | tail -5 && echo '--- tests ---' && npx vitest run 2>&1 | tail -10 && echo '--- console.log check ---' && git diff --name-only 2>/dev/null | xargs grep -l 'console\\.log' 2>/dev/null || echo 'none'",
+            "timeout": 60000
           }
         ]
       }

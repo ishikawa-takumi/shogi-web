@@ -101,3 +101,48 @@ Database name: `"shogi-trainer"`, version 1
 - Types in `src/types/`, re-exported from `src/types/index.ts`
 - Test files mirror source structure: `tests/engine/*.test.ts`
 - No `test` script in package.json — use `npx vitest run` directly
+
+## Claude Code Workflow
+
+### Slash Commands (`.claude/commands/`)
+
+| Command | Purpose |
+|---------|---------|
+| `/commit` | Stage + commit with pre-computed git context |
+| `/verify` | Run build + lint + tests, report summary |
+| `/verify-ui` | Test app in real browser via Playwright |
+| `/simplify` | Simplify recently changed code |
+| `/plan` | Plan-first mode: explore, design, then implement |
+
+### Subagents (`.claude/agents/`)
+
+| Agent | Purpose |
+|-------|---------|
+| `code-simplifier` | Simplify code after implementation |
+| `verify-app` | Full verification: static analysis + tests + browser + content |
+
+### Hooks
+
+- **PostToolUse**: `eslint --fix` on `.ts`/`.tsx` after Edit/Write
+- **Stop**: Typecheck + lint + tests + console.log audit on session end
+
+### Workflow
+
+1. Start with `/plan` or Shift+Tab x2 (Plan mode) for non-trivial tasks
+2. Iterate on the plan until satisfied
+3. Switch to auto-accept edits and implement
+4. Run `/verify` to check everything passes
+5. Run `/simplify` to clean up
+6. Run `/commit` to commit with a good message
+
+## Common Mistakes
+
+<!-- Add entries here when Claude makes a mistake, so it learns not to repeat them. -->
+<!-- Format: "Do X, not Y" with a brief explanation. -->
+
+- Do NOT mutate state — always use spread (`{ ...obj, key: value }`), never `obj.key = value`
+- Do NOT import from `react-router` — this app uses `useState<Screen>` for navigation
+- Do NOT add a Tailwind config file — v4 uses `@import "tailwindcss"` in CSS, no config
+- Do NOT use `any` in source files — use `unknown` and narrow with type guards
+- Do NOT access Zustand stores from components — components are props-driven, only screens/App use stores
+- Do NOT add `console.log` — the Stop hook will flag it
