@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vitest*)",
+      "Bash(npm run build*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run preview*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git stash*)",
+      "Bash(git add *)",
+      "Bash(ls *)",
+      "Bash(tsc --noEmit*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "fp=$(echo \"$CLAUDE_TOOL_USE_INPUT\" | python3 -c \"import sys,json;print(json.load(sys.stdin).get('file_path',''))\" 2>/dev/null); if [[ \"$fp\" == *.ts || \"$fp\" == *.tsx ]]; then cd /Users/takumiishikawa/work/shogi-web && npx eslint --fix \"$fp\" 2>/dev/null || true; fi",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/takumiishikawa/work/shogi-web && echo '--- typecheck ---' && tsc --noEmit 2>&1 | tail -5 && echo '--- modified files with console.log ---' && git diff --name-only 2>/dev/null | xargs grep -l 'console\\.log' 2>/dev/null || echo 'none'",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  }
+}
