@@ -1,5 +1,9 @@
 import { useState, type ChangeEvent } from "react";
 import type { UserSettings, SidePreference, ExportBlob } from "../types/index.ts";
+import { PrimaryButton } from "../components/ui/PrimaryButton.tsx";
+import { SecondaryButton } from "../components/ui/SecondaryButton.tsx";
+import { Card } from "../components/ui/Card.tsx";
+import { RadioGroup } from "../components/ui/RadioGroup.tsx";
 
 type Props = {
   readonly settings: UserSettings;
@@ -9,8 +13,13 @@ type Props = {
   readonly onReset: () => Promise<void>;
 };
 
-const DAILY_TARGETS = [10, 20, 30] as const;
-const SIDE_OPTIONS: { value: SidePreference; label: string }[] = [
+const DAILY_TARGET_OPTIONS = [
+  { value: 10, label: "10問" },
+  { value: 20, label: "20問" },
+  { value: 30, label: "30問" },
+] as const;
+
+const SIDE_OPTIONS: readonly { value: SidePreference; label: string }[] = [
   { value: "both", label: "両方" },
   { value: "sente", label: "先手のみ" },
   { value: "gote", label: "後手のみ" },
@@ -75,80 +84,58 @@ export function SettingsScreen({ settings, onSave, onExport, onImport, onReset }
       <h1 className="text-lg font-bold text-stone-900">設定</h1>
 
       {message && (
-        <div className="rounded-lg bg-green-100 px-4 py-2 text-sm text-green-800">
+        <div
+          role="status"
+          aria-live="polite"
+          className={`rounded-lg px-4 py-2 text-sm ${
+            message.includes("失敗") ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"
+          }`}
+        >
           {message}
         </div>
       )}
 
-      {/* Daily target */}
-      <div className="rounded-xl bg-white p-4 shadow-sm">
-        <label className="text-sm font-medium text-stone-700">1日の目標問題数</label>
-        <div className="mt-2 flex gap-2">
-          {DAILY_TARGETS.map((t) => (
-            <button
-              key={t}
-              onClick={() => setDailyTarget(t)}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium transition-colors ${
-                dailyTarget === t
-                  ? "bg-stone-800 text-white"
-                  : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-              }`}
-            >
-              {t}問
-            </button>
-          ))}
-        </div>
-      </div>
+      <Card className="space-y-4">
+        <RadioGroup
+          label="1日の目標問題数"
+          options={DAILY_TARGET_OPTIONS}
+          selected={dailyTarget}
+          onChange={setDailyTarget}
+        />
+        <RadioGroup
+          label="手番"
+          options={SIDE_OPTIONS}
+          selected={sidePreference}
+          onChange={setSidePreference}
+        />
+        <PrimaryButton fullWidth onClick={handleSave}>
+          保存
+        </PrimaryButton>
+      </Card>
 
-      {/* Side preference */}
-      <div className="rounded-xl bg-white p-4 shadow-sm">
-        <label className="text-sm font-medium text-stone-700">手番</label>
-        <div className="mt-2 flex gap-2">
-          {SIDE_OPTIONS.map(({ value, label }) => (
-            <button
-              key={value}
-              onClick={() => setSidePreference(value)}
-              className={`flex-1 rounded-lg py-2 text-sm font-medium transition-colors ${
-                sidePreference === value
-                  ? "bg-stone-800 text-white"
-                  : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <button
-        onClick={handleSave}
-        className="w-full rounded-xl bg-stone-800 py-3 text-sm font-semibold text-white hover:bg-stone-700 transition-colors"
-      >
-        保存
-      </button>
-
-      {/* Export/Import */}
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <Card className="space-y-3">
         <h2 className="text-sm font-medium text-stone-700">データ管理</h2>
-        <div className="mt-3 flex gap-3">
-          <button
-            onClick={handleExport}
-            className="flex-1 rounded-lg border border-stone-300 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors"
-          >
+        <div className="flex gap-2">
+          <SecondaryButton className="flex-1" onClick={handleExport}>
             エクスポート
-          </button>
-          <label className="flex flex-1 cursor-pointer items-center justify-center rounded-lg border border-stone-300 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors">
-            インポート
-            <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+          </SecondaryButton>
+          <label className="flex-1">
+            <SecondaryButton className="w-full" onClick={() => document.getElementById("import-input")?.click()}>
+              インポート
+            </SecondaryButton>
+            <input
+              id="import-input"
+              type="file"
+              accept=".json"
+              className="hidden"
+              onChange={handleImport}
+            />
           </label>
         </div>
-        <button
-          onClick={handleReset}
-          className="mt-3 w-full rounded-lg border border-red-300 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-        >
-          データをリセット
-        </button>
-      </div>
+        <SecondaryButton variant="danger" fullWidth onClick={handleReset}>
+          学習データをリセット
+        </SecondaryButton>
+      </Card>
     </div>
   );
 }

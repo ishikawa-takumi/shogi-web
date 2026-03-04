@@ -1,24 +1,5 @@
 import type { Square, Owner, PieceType, HandPieces, ParsedSfen } from "../types/index.ts";
-
-const PIECE_LABELS: Record<string, string> = {
-  P: "歩",
-  L: "香",
-  N: "桂",
-  S: "銀",
-  G: "金",
-  B: "角",
-  R: "飛",
-  K: "玉",
-};
-
-const PROMOTED_LABELS: Record<string, string> = {
-  P: "と",
-  L: "杏",
-  N: "圭",
-  S: "全",
-  B: "馬",
-  R: "龍",
-};
+import { BASE_LABELS, PROMOTED_LABELS } from "../utils/piece-labels.ts";
 
 const PIECE_TYPES: PieceType[] = ["P", "L", "N", "S", "G", "B", "R", "K"];
 
@@ -43,7 +24,7 @@ function parseBoard(boardPart: string): readonly (readonly Square[])[] {
         const next = rowStr[i + 1];
         const upper = next.toUpperCase() as PieceType;
         const owner: Owner = next === next.toUpperCase() ? "sente" : "gote";
-        const pieceLabel = PROMOTED_LABELS[upper] ?? PIECE_LABELS[upper] ?? upper;
+        const pieceLabel = PROMOTED_LABELS[upper] ?? BASE_LABELS[upper] ?? upper;
         squares.push({
           owner,
           pieceType: upper,
@@ -60,7 +41,7 @@ function parseBoard(boardPart: string): readonly (readonly Square[])[] {
       } else {
         const upper = ch.toUpperCase() as PieceType;
         const owner: Owner = ch === ch.toUpperCase() ? "sente" : "gote";
-        const pieceLabel = PIECE_LABELS[upper] ?? upper;
+        const pieceLabel = BASE_LABELS[upper] ?? upper;
         squares.push({
           owner,
           pieceType: upper,
@@ -117,7 +98,14 @@ function parseHands(handPart: string): { sente: HandPieces; gote: HandPieces } {
 
 export function parseSfen(sfen: string): ParsedSfen {
   const parts = sfen.trim().split(/\s+/);
+  if (parts.length < 3) {
+    throw new Error(`Invalid SFEN: expected at least 3 parts, got ${parts.length}`);
+  }
   const boardPart = parts[0] ?? "";
+  const rowStrings = boardPart.split("/");
+  if (rowStrings.length !== 9) {
+    throw new Error(`Invalid SFEN board: expected 9 rows, got ${rowStrings.length}`);
+  }
   const sidePart = parts[1] ?? "b";
   const handPart = parts[2] ?? "-";
 

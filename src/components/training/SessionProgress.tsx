@@ -10,13 +10,20 @@ export function SessionProgress({ completed, total, correct }: Props) {
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs text-stone-500">
+      <div className="flex items-center justify-between text-xs text-stone-600">
         <span>{completed} / {total} 問</span>
         <span>正答率 {accuracy}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-stone-200">
+      <div
+        className="h-2 overflow-hidden rounded-full bg-stone-200"
+        role="progressbar"
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="セッション進捗"
+      >
         <div
-          className="h-full rounded-full bg-stone-700 transition-all duration-300"
+          className="h-full rounded-full bg-amber-500 transition-all duration-300"
           style={{ width: `${percent}%` }}
         />
       </div>

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { DashboardState, OpeningMastery, ReviewCard, OpeningFamily } from "../types/index.ts";
-import { calculateStreak, rankLabel } from "../engine/srs.ts";
+import { calculateStreak, rankLabel, MASTERY_THRESHOLD } from "../engine/srs.ts";
 import { sessionDates } from "../db/session-history.ts";
 import { todayString } from "../utils/date.ts";
 
@@ -26,7 +26,7 @@ export const useDashboardStore = create<DashboardState & DashboardActions>((set)
   compute: async (cards, families) => {
     const now = new Date();
     const dueCount = cards.filter((c) => new Date(c.dueAt) <= now).length;
-    const masteredCards = cards.filter((c) => c.easeStep >= 4).length;
+    const masteredCards = cards.filter((c) => c.easeStep >= MASTERY_THRESHOLD).length;
     const totalCards = cards.length;
 
     const dates = await sessionDates();
@@ -35,7 +35,7 @@ export const useDashboardStore = create<DashboardState & DashboardActions>((set)
 
     const openingMastery: OpeningMastery[] = families.map((family) => {
       const familyCards = cards.filter((c) => c.openingFamilyId === family.id);
-      const mastered = familyCards.filter((c) => c.easeStep >= 4).length;
+      const mastered = familyCards.filter((c) => c.easeStep >= MASTERY_THRESHOLD).length;
       const total = familyCards.length;
       return {
         openingFamilyId: family.id,

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { ReviewCard } from "../types/index.ts";
 import { listReviewCards, upsertReviewCard, clearReviewCards } from "../db/review-cards.ts";
 import { clearSessionHistory } from "../db/session-history.ts";
+import { MASTERY_THRESHOLD } from "../engine/srs.ts";
 
 type ReviewState = {
   readonly cards: readonly ReviewCard[];
@@ -55,5 +56,5 @@ export const useReviewStore = create<ReviewState & ReviewActions>((set, get) => 
   },
 
   masteredCount: () =>
-    get().cards.filter((c) => c.easeStep >= 4).length,
+    get().cards.filter((c) => c.easeStep >= MASTERY_THRESHOLD).length,
 }));

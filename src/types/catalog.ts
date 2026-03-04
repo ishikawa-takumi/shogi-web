@@ -1,4 +1,4 @@
-export type Difficulty = "beginner" | "intermediate";
+export type Difficulty = "beginner" | "intermediate" | "advanced";
 export type SideToMove = "sente" | "gote";
 
 export type OpeningCatalog = {

@@ -1,5 +1,6 @@
 import { useMemo, useCallback, type MouseEvent, type JSX } from "react";
-import type { Square, Coord, Owner, ParsedSfen } from "../../types/index.ts";
+import type { Coord, Owner, ParsedSfen } from "../../types/index.ts";
+import { pieceKanji, BASE_LABELS } from "../../utils/piece-labels.ts";
 
 // ─── Layout constants ──────────────────────────────────────────────────────
 const CELL = 48;
@@ -35,21 +36,6 @@ function actualCoord(displayRow: number, displayCol: number, orientation: BoardO
     return { row: 8 - displayRow, col: 8 - displayCol };
   }
   return { row: displayRow, col: displayCol };
-}
-
-// ─── Piece rendering ───────────────────────────────────────────────────────
-const KANJI: Record<string, string> = {
-  P: "歩", L: "香", N: "桂", S: "銀", G: "金", B: "角", R: "飛", K: "玉",
-};
-const PROMOTED_KANJI: Record<string, string> = {
-  P: "と", L: "杏", N: "圭", S: "全", B: "馬", R: "龍",
-};
-
-function pieceKanji(sq: NonNullable<Square>): string {
-  if (sq.promoted) {
-    return PROMOTED_KANJI[sq.pieceType] ?? sq.pieceType;
-  }
-  return KANJI[sq.pieceType] ?? sq.pieceType;
 }
 
 // ─── Pentagon path for piece shape ─────────────────────────────────────────
@@ -105,7 +91,7 @@ function HandPieces({ hands, side, x, orientation }: {
           className={`piece-text ${side === "gote" ? "gote-piece" : "sente-piece"}`}
           fontSize="18"
         >
-          {KANJI[pt] ?? pt}
+          {BASE_LABELS[pt] ?? pt}
         </text>
         {count > 1 && (
           <text
@@ -275,7 +261,7 @@ export function ShogiBoard({
                     className={`piece-kanji ${sq.promoted ? "promoted" : ""}`}
                     fontSize="22"
                   >
-                    {pieceKanji(sq)}
+                    {pieceKanji(sq.pieceType, sq.promoted)}
                   </text>
                 </g>
               )}

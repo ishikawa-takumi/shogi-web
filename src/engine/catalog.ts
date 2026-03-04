@@ -7,6 +7,7 @@ import type {
 } from "../types/index.ts";
 import { isValidUsiMove, normalizeUsiMove, legalDestinations, canPromote, mustPromote } from "./move-validation.ts";
 import { parseSfen } from "./sfen.ts";
+import { usiSquareToCoord } from "../utils/coord.ts";
 
 // ─── CatalogCache ──────────────────────────────────────────────────────────
 
@@ -58,6 +59,101 @@ export function buildPromptNode(
 
 // ─── Validation ────────────────────────────────────────────────────────────
 
+function validateFamilies(catalog: OpeningCatalog, issues: ContentValidationIssue[]): Set<string> {
+  const familyIds = new Set<string>();
+  for (const family of catalog.families) {
+    if (familyIds.has(family.id)) {
+      pushIssue(issues, `重複した family id: ${family.id}`, null, null, family.id);
+    }
+    familyIds.add(family.id);
+  }
+  return familyIds;
+}
+
+function validateLines(catalog: OpeningCatalog, familyIds: Set<string>, issues: ContentValidationIssue[]): Set<string> {
+  const lineIds = new Set<string>();
+  for (const line of catalog.lines) {
+    if (lineIds.has(line.id)) {
+      pushIssue(issues, `重複した line id: ${line.id}`, null, line.id, line.familyId);
+    }
+    lineIds.add(line.id);
+    if (!familyIds.has(line.familyId)) {
+      pushIssue(issues, `line ${line.id} の family_id が存在しません: ${line.familyId}`, null, line.id, line.familyId);
+    }
+  }
+  return lineIds;
+}
+
+function validateNodes(catalog: OpeningCatalog, issues: ContentValidationIssue[]): Set<string> {
+  const nodeIds = new Set<string>();
+  for (const node of catalog.nodes) {
+    if (nodeIds.has(node.id)) {
+      pushIssue(issues, `重複した node id: ${node.id}`, node.id, node.lineId, node.openingFamilyId);
+    }
+    nodeIds.add(node.id);
+    if (node.expectedMovesUsi.length === 0) {
+      pushIssue(issues, `node ${node.id} に expectedMovesUsi がありません`, node.id, node.lineId, node.openingFamilyId);
+    }
+    for (const usi of node.expectedMovesUsi) {
+      if (!isValidUsiMove(usi)) {
+        pushIssue(issues, `node ${node.id} の USI が不正です: ${usi}`, node.id, node.lineId, node.openingFamilyId);
+        continue;
+      }
+      const moveError = validateExpectedMove(node, usi);
+      if (moveError) {
+        pushIssue(issues, moveError, node.id, node.lineId, node.openingFamilyId);
+      }
+    }
+    if (node.opponentAutoResponseUsi && !isValidUsiMove(node.opponentAutoResponseUsi)) {
+      pushIssue(issues, `node ${node.id} の自動応手USIが不正です: ${node.opponentAutoResponseUsi}`, node.id, node.lineId, node.openingFamilyId);
+    }
+  }
+  return nodeIds;
+}
+
+function validateCrossReferences(catalog: OpeningCatalog, _familyIds: Set<string>, lineIds: Set<string>, nodeIds: Set<string>, issues: ContentValidationIssue[]): void {
+  // lines -> nodes
+  for (const line of catalog.lines) {
+    if (!nodeIds.has(line.rootNodeId)) {
+      pushIssue(issues, `line ${line.id} の rootNodeId が存在しません: ${line.rootNodeId}`, line.rootNodeId, line.id, line.familyId);
+    }
+    if (line.nodeIds.length === 0) {
+      pushIssue(issues, `line ${line.id} に nodeIds がありません`, null, line.id, line.familyId);
+    }
+    for (const nid of line.nodeIds) {
+      if (!nodeIds.has(nid)) {
+        pushIssue(issues, `line ${line.id} の nodeId が存在しません: ${nid}`, nid, line.id, line.familyId);
+      }
+    }
+  }
+  // families -> lines
+  for (const family of catalog.families) {
+    if (family.lineIds.length === 0) {
+      pushIssue(issues, `family ${family.id} に lineIds がありません`, null, null, family.id);
+    }
+    for (const lid of family.lineIds) {
+      if (!lineIds.has(lid)) {
+        pushIssue(issues, `family ${family.id} の lineId が存在しません: ${lid}`, null, lid, family.id);
+      }
+    }
+  }
+  // node -> line/family consistency + next_node_id
+  const lineFamilyLookup = new Map(catalog.lines.map((l) => [l.id, l.familyId]));
+  for (const node of catalog.nodes) {
+    const lineFamily = lineFamilyLookup.get(node.lineId);
+    if (lineFamily === undefined) {
+      pushIssue(issues, `node ${node.id} の lineId が存在しません: ${node.lineId}`, node.id, node.lineId, node.openingFamilyId);
+      continue;
+    }
+    if (lineFamily !== node.openingFamilyId) {
+      pushIssue(issues, `node ${node.id} の family/line 紐づけが不正です`, node.id, node.lineId, node.openingFamilyId);
+    }
+    if (node.nextNodeId && !nodeIds.has(node.nextNodeId)) {
+      pushIssue(issues, `node ${node.id} の nextNodeId が存在しません: ${node.nextNodeId}`, node.id, node.lineId, node.openingFamilyId);
+    }
+  }
+}
+
 export function validateCatalogReport(
   catalog: OpeningCatalog,
 ): ContentValidationReport {
@@ -66,167 +162,16 @@ export function validateCatalogReport(
   if (catalog.schemaVersion !== 1) {
     pushIssue(issues, `schemaVersion=1のみ対応しています: ${catalog.schemaVersion}`);
   }
-
   if (catalog.families.length === 0) {
     pushIssue(issues, "opening family が空です");
   }
 
-  // Collect IDs
-  const familyIds = new Set<string>();
-  for (const family of catalog.families) {
-    if (familyIds.has(family.id)) {
-      pushIssue(issues, `重複した family id: ${family.id}`, null, null, family.id);
-    }
-    familyIds.add(family.id);
-  }
+  const familyIds = validateFamilies(catalog, issues);
+  const lineIds = validateLines(catalog, familyIds, issues);
+  const nodeIds = validateNodes(catalog, issues);
+  validateCrossReferences(catalog, familyIds, lineIds, nodeIds, issues);
 
-  const lineIds = new Set<string>();
-  for (const line of catalog.lines) {
-    if (lineIds.has(line.id)) {
-      pushIssue(issues, `重複した line id: ${line.id}`, null, line.id, line.familyId);
-    }
-    lineIds.add(line.id);
-
-    if (!familyIds.has(line.familyId)) {
-      pushIssue(
-        issues,
-        `line ${line.id} の family_id が存在しません: ${line.familyId}`,
-        null,
-        line.id,
-        line.familyId,
-      );
-    }
-  }
-
-  const nodeIds = new Set<string>();
-  for (const node of catalog.nodes) {
-    if (nodeIds.has(node.id)) {
-      pushIssue(issues, `重複した node id: ${node.id}`, node.id, node.lineId, node.openingFamilyId);
-    }
-    nodeIds.add(node.id);
-
-    if (node.expectedMovesUsi.length === 0) {
-      pushIssue(
-        issues,
-        `node ${node.id} に expectedMovesUsi がありません`,
-        node.id,
-        node.lineId,
-        node.openingFamilyId,
-      );
-    }
-
-    for (const usi of node.expectedMovesUsi) {
-      if (!isValidUsiMove(usi)) {
-        pushIssue(
-          issues,
-          `node ${node.id} の USI が不正です: ${usi}`,
-          node.id,
-          node.lineId,
-          node.openingFamilyId,
-        );
-        continue;
-      }
-      const moveError = validateExpectedMove(node, usi);
-      if (moveError) {
-        pushIssue(issues, moveError, node.id, node.lineId, node.openingFamilyId);
-      }
-    }
-
-    if (node.opponentAutoResponseUsi && !isValidUsiMove(node.opponentAutoResponseUsi)) {
-      pushIssue(
-        issues,
-        `node ${node.id} の自動応手USIが不正です: ${node.opponentAutoResponseUsi}`,
-        node.id,
-        node.lineId,
-        node.openingFamilyId,
-      );
-    }
-  }
-
-  // Cross-reference: lines → nodes
-  for (const line of catalog.lines) {
-    if (!nodeIds.has(line.rootNodeId)) {
-      pushIssue(
-        issues,
-        `line ${line.id} の rootNodeId が存在しません: ${line.rootNodeId}`,
-        line.rootNodeId,
-        line.id,
-        line.familyId,
-      );
-    }
-    if (line.nodeIds.length === 0) {
-      pushIssue(issues, `line ${line.id} に nodeIds がありません`, null, line.id, line.familyId);
-    }
-    for (const nid of line.nodeIds) {
-      if (!nodeIds.has(nid)) {
-        pushIssue(
-          issues,
-          `line ${line.id} の nodeId が存在しません: ${nid}`,
-          nid,
-          line.id,
-          line.familyId,
-        );
-      }
-    }
-  }
-
-  // Cross-reference: families → lines
-  for (const family of catalog.families) {
-    if (family.lineIds.length === 0) {
-      pushIssue(issues, `family ${family.id} に lineIds がありません`, null, null, family.id);
-    }
-    for (const lid of family.lineIds) {
-      if (!lineIds.has(lid)) {
-        pushIssue(
-          issues,
-          `family ${family.id} の lineId が存在しません: ${lid}`,
-          null,
-          lid,
-          family.id,
-        );
-      }
-    }
-  }
-
-  // Cross-reference: node → line family consistency + next_node_id
-  const lineFamilyLookup = new Map(catalog.lines.map((l) => [l.id, l.familyId]));
-  for (const node of catalog.nodes) {
-    const lineFamily = lineFamilyLookup.get(node.lineId);
-    if (lineFamily === undefined) {
-      pushIssue(
-        issues,
-        `node ${node.id} の lineId が存在しません: ${node.lineId}`,
-        node.id,
-        node.lineId,
-        node.openingFamilyId,
-      );
-      continue;
-    }
-    if (lineFamily !== node.openingFamilyId) {
-      pushIssue(
-        issues,
-        `node ${node.id} の family/line 紐づけが不正です`,
-        node.id,
-        node.lineId,
-        node.openingFamilyId,
-      );
-    }
-    if (node.nextNodeId && !nodeIds.has(node.nextNodeId)) {
-      pushIssue(
-        issues,
-        `node ${node.id} の nextNodeId が存在しません: ${node.nextNodeId}`,
-        node.id,
-        node.lineId,
-        node.openingFamilyId,
-      );
-    }
-  }
-
-  return {
-    isValid: issues.length === 0,
-    issueCount: issues.length,
-    issues,
-  };
+  return { isValid: issues.length === 0, issueCount: issues.length, issues };
 }
 
 // ─── Move validation for catalog content ───────────────────────────────────
@@ -240,25 +185,12 @@ function validateExpectedMove(node: MoveNode, usi: string): string | null {
   }
 
   // Parse the move
-  const fromFile = parseInt(normalized[0], 10);
-  const fromRank = normalized.charCodeAt(1) - 97; // 'a' = 0
-  const toFile = parseInt(normalized[2], 10);
-  const toRank = normalized.charCodeAt(3) - 97;
-  const withPromotion = normalized.length === 5 && normalized[4] === "+";
-
-  if (
-    isNaN(fromFile) || fromFile < 1 || fromFile > 9 ||
-    fromRank < 0 || fromRank > 8 ||
-    isNaN(toFile) || toFile < 1 || toFile > 9 ||
-    toRank < 0 || toRank > 8
-  ) {
+  const fromCoord = usiSquareToCoord(normalized.slice(0, 2));
+  const toCoord = usiSquareToCoord(normalized.slice(2, 4));
+  if (!fromCoord || !toCoord) {
     return `node ${node.id} の期待手の解釈に失敗しました: ${usi}`;
   }
-
-  const fromRow = fromRank;
-  const fromCol = 9 - fromFile;
-  const toRow = toRank;
-  const toCol = 9 - toFile;
+  const withPromotion = normalized.length === 5 && normalized[4] === "+";
 
   // Parse the board
   const parsed = parseSfen(node.sfen);
@@ -266,7 +198,7 @@ function validateExpectedMove(node: MoveNode, usi: string): string | null {
     return `node ${node.id} のSFEN解析に失敗しました: ${node.sfen}`;
   }
 
-  const piece = parsed.board[fromRow]?.[fromCol];
+  const piece = parsed.board[fromCoord.row]?.[fromCoord.col];
   if (!piece) {
     return `node ${node.id} の期待手の移動元に駒がありません: ${usi}`;
   }
@@ -276,14 +208,14 @@ function validateExpectedMove(node: MoveNode, usi: string): string | null {
     return `node ${node.id} の期待手の移動元が手番側の駒ではありません: ${usi}`;
   }
 
-  const targetPiece = parsed.board[toRow]?.[toCol];
+  const targetPiece = parsed.board[toCoord.row]?.[toCoord.col];
   if (targetPiece && targetPiece.owner === expectedOwner) {
     return `node ${node.id} の期待手は移動先に自駒があります: ${usi}`;
   }
 
   // Check legal move
-  const destinations = legalDestinations(parsed.board, { row: fromRow, col: fromCol }, expectedOwner);
-  const isLegal = destinations.some((d) => d.row === toRow && d.col === toCol);
+  const destinations = legalDestinations(parsed.board, fromCoord, expectedOwner);
+  const isLegal = destinations.some((d) => d.row === toCoord.row && d.col === toCoord.col);
   if (!isLegal) {
     return `node ${node.id} の期待手は駒の動きとして不正です: ${usi}`;
   }
@@ -293,11 +225,11 @@ function validateExpectedMove(node: MoveNode, usi: string): string | null {
     if (piece.pieceType.startsWith("+")) {
       return `node ${node.id} の期待手は既に成っている駒へ再度 '+' を付けています: ${usi}`;
     }
-    if (!canPromote(piece, { row: fromRow, col: fromCol }, { row: toRow, col: toCol }, expectedOwner)) {
+    if (!canPromote(piece, fromCoord, toCoord, expectedOwner)) {
       return `node ${node.id} の期待手は成りゾーン外なのに '+' を付けています: ${usi}`;
     }
   } else {
-    if (!piece.pieceType.startsWith("+") && mustPromote(piece, { row: toRow, col: toCol }, expectedOwner)) {
+    if (!piece.pieceType.startsWith("+") && mustPromote(piece, toCoord, expectedOwner)) {
       return `node ${node.id} の期待手は成り必須の移動なのに '+' がありません: ${usi}`;
     }
   }

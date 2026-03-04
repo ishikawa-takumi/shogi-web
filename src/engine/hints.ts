@@ -47,7 +47,7 @@ export function hintButtonLabel(level: HintLevel): string {
   return "もっとヒント";
 }
 
-function describeStrategicIntent(prompt: PromptNode, primaryMove: string): string {
+function describeStrategicIntent(_prompt: PromptNode, primaryMove: string): string {
   const dropMatch = primaryMove.match(/^([plnsgbrk])\*([1-9][a-i])$/);
   if (dropMatch) {
     const pieceJa = pieceToJapanese(dropMatch[1].toUpperCase());
@@ -56,10 +56,8 @@ function describeStrategicIntent(prompt: PromptNode, primaryMove: string): strin
 
   const normalMatch = primaryMove.match(/^([1-9][a-i])([1-9][a-i])(\+)?$/);
   if (normalMatch) {
-    const from = usiSquareToCoord(normalMatch[1]);
-    const to = usiSquareToCoord(normalMatch[2]);
     const promoted = Boolean(normalMatch[3]);
-    const intent = pieceIntentText(prompt, from, to);
+    const intent = "この一手は盤面の主導権を維持するための要点です。";
 
     if (promoted) {
       return `${intent} 成ることで駒の働きを上げ、拠点を作りやすくします。`;
@@ -91,18 +89,6 @@ function describePracticalHint(prompt: PromptNode, primaryMove: string): string 
 
 function describeExplicitHint(primaryMove: string): string {
   return `正解手は ${primaryMove} です。`;
-}
-
-function pieceIntentText(
-  prompt: PromptNode,
-  from: Coord | null,
-  _to: Coord | null,
-): string {
-  // Without board parsing here, provide tag-based intent
-  // The full board-aware version would import parseSfen, but we keep this module lightweight
-  void prompt;
-  void from;
-  return "この一手は盤面の主導権を維持するための要点です。";
 }
 
 function describeOpeningIntent(tags: readonly string[]): string {

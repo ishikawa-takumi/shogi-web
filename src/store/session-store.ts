@@ -19,7 +19,7 @@ type SessionActions = {
     prompt: PromptNode,
     existingCard: ReviewCard | undefined,
   ) => MoveResult;
-  readonly advance: () => PromptNode | null;
+  readonly advance: () => void;
   readonly reset: () => void;
   readonly currentNodeId: () => string | null;
 };
@@ -119,10 +119,9 @@ export const useSessionStore = create<SessionState & SessionActions>((set, get) 
     const nextIndex = state.currentIndex + 1;
     if (nextIndex >= state.queue.length) {
       set({ active: false });
-      return null;
+      return;
     }
     set({ currentIndex: nextIndex });
-    return null; // caller resolves the prompt from catalog store
   },
 
   reset: () => set(INITIAL_STATE),

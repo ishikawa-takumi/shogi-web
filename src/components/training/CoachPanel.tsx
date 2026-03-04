@@ -13,6 +13,7 @@ type Props = {
 export function CoachPanel({ hintLadder, feedback, feedbackType, onSubmitManualMove, disabled }: Props) {
   const [hintLevel, setHintLevel] = useState<HintLevel>(0);
   const [manualInput, setManualInput] = useState("");
+  const [showManualInput, setShowManualInput] = useState(false);
 
   const hintText = resolveHintText(hintLadder, hintLevel);
 
@@ -36,6 +37,8 @@ export function CoachPanel({ hintLadder, feedback, feedbackType, onSubmitManualM
       {/* Feedback banner */}
       {feedback && (
         <div
+          role="alert"
+          aria-live="assertive"
           className={`rounded-lg px-4 py-2 text-sm font-medium ${
             feedbackType === "success"
               ? "bg-green-100 text-green-800"
@@ -59,31 +62,41 @@ export function CoachPanel({ hintLadder, feedback, feedbackType, onSubmitManualM
           <button
             type="button"
             onClick={cycleHint}
-            className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-medium text-amber-800 hover:bg-amber-200 transition-colors"
+            className="rounded-md bg-amber-100 px-3 py-1.5 text-xs font-medium text-amber-800 hover:bg-amber-200"
           >
             {hintButtonLabel(hintLevel)}
           </button>
         </div>
       )}
 
-      {/* Manual USI input */}
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
-          value={manualInput}
-          onChange={(e) => setManualInput(e.target.value)}
-          placeholder="USI入力 (例: 7g7f)"
-          disabled={disabled}
-          className="flex-1 rounded-md border border-stone-300 px-3 py-1.5 text-sm focus:border-stone-500 focus:outline-none disabled:opacity-50"
-        />
+      {/* Manual USI input (collapsed by default) */}
+      {showManualInput ? (
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <input
+            type="text"
+            value={manualInput}
+            onChange={(e) => setManualInput(e.target.value)}
+            placeholder="USI入力 (例: 7g7f)"
+            disabled={disabled}
+            className="flex-1 rounded-md border border-stone-300 px-3 py-1.5 text-sm focus:border-amber-500 focus:outline-none disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={disabled || !manualInput.trim()}
+            className="rounded-md bg-stone-700 px-4 py-1.5 text-sm font-medium text-white hover:bg-stone-600 disabled:opacity-50"
+          >
+            送信
+          </button>
+        </form>
+      ) : (
         <button
-          type="submit"
-          disabled={disabled || !manualInput.trim()}
-          className="rounded-md bg-stone-800 px-4 py-1.5 text-sm font-medium text-white hover:bg-stone-700 disabled:opacity-50 transition-colors"
+          type="button"
+          onClick={() => setShowManualInput(true)}
+          className="text-xs text-stone-500 hover:text-stone-700"
         >
-          送信
+          USI手動入力...
         </button>
-      </form>
+      )}
     </div>
   );
 }

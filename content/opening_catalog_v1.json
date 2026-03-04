@@ -22,7 +22,8 @@
       "nameJa": "後手の基本受け",
       "difficulty": "intermediate",
       "lineIds": [
-        "gote-static-basic"
+        "gote-static-basic",
+        "gote-vs-furibisha"
       ]
     },
     {
@@ -31,6 +32,38 @@
       "difficulty": "beginner",
       "lineIds": [
         "tsume-one-move"
+      ]
+    },
+    {
+      "id": "furibisha",
+      "nameJa": "振り飛車",
+      "difficulty": "beginner",
+      "lineIds": [
+        "shikenbisha-basic"
+      ]
+    },
+    {
+      "id": "kakugawari",
+      "nameJa": "角換わり",
+      "difficulty": "beginner",
+      "lineIds": [
+        "kakugawari-basic"
+      ]
+    },
+    {
+      "id": "nakabisha",
+      "nameJa": "中飛車",
+      "difficulty": "beginner",
+      "lineIds": [
+        "nakabisha-basic"
+      ]
+    },
+    {
+      "id": "tsume-3",
+      "nameJa": "詰将棋（3手）",
+      "difficulty": "intermediate",
+      "lineIds": [
+        "tsume-three-move"
       ]
     }
   ],
@@ -45,7 +78,9 @@
         "aigakari-n2",
         "aigakari-n3",
         "aigakari-n4",
-        "aigakari-n5"
+        "aigakari-n5",
+        "aigakari-n6",
+        "aigakari-n7"
       ]
     },
     {
@@ -58,7 +93,10 @@
         "yagura-n2",
         "yagura-n3",
         "yagura-n4",
-        "yagura-n5"
+        "yagura-n5",
+        "yagura-n6",
+        "yagura-n7",
+        "yagura-n8"
       ]
     },
     {
@@ -71,7 +109,9 @@
         "gote-n2",
         "gote-n3",
         "gote-n4",
-        "gote-n5"
+        "gote-n5",
+        "gote-n6",
+        "gote-n7"
       ]
     },
     {
@@ -92,6 +132,83 @@
         "tsume-n10",
         "tsume-n11",
         "tsume-n12"
+      ]
+    },
+    {
+      "id": "shikenbisha-basic",
+      "familyId": "furibisha",
+      "nameJa": "四間飛車 基本形",
+      "rootNodeId": "shikenbisha-basic-n1",
+      "nodeIds": [
+        "shikenbisha-basic-n1",
+        "shikenbisha-basic-n2",
+        "shikenbisha-basic-n3",
+        "shikenbisha-basic-n4",
+        "shikenbisha-basic-n5",
+        "shikenbisha-basic-n6"
+      ]
+    },
+    {
+      "id": "kakugawari-basic",
+      "familyId": "kakugawari",
+      "nameJa": "角換わり 基本形",
+      "rootNodeId": "kakugawari-basic-n1",
+      "nodeIds": [
+        "kakugawari-basic-n1",
+        "kakugawari-basic-n2",
+        "kakugawari-basic-n3",
+        "kakugawari-basic-n4",
+        "kakugawari-basic-n5"
+      ]
+    },
+    {
+      "id": "nakabisha-basic",
+      "familyId": "nakabisha",
+      "nameJa": "中飛車 基本形",
+      "rootNodeId": "nakabisha-basic-n1",
+      "nodeIds": [
+        "nakabisha-basic-n1",
+        "nakabisha-basic-n2",
+        "nakabisha-basic-n3",
+        "nakabisha-basic-n4",
+        "nakabisha-basic-n5"
+      ]
+    },
+    {
+      "id": "gote-vs-furibisha",
+      "familyId": "gote-structures",
+      "nameJa": "対振り飛車の基本",
+      "rootNodeId": "gote-vs-furibisha-n1",
+      "nodeIds": [
+        "gote-vs-furibisha-n1",
+        "gote-vs-furibisha-n2",
+        "gote-vs-furibisha-n3",
+        "gote-vs-furibisha-n4",
+        "gote-vs-furibisha-n5"
+      ]
+    },
+    {
+      "id": "tsume-three-move",
+      "familyId": "tsume-3",
+      "nameJa": "3手詰ドリル",
+      "rootNodeId": "tsume-three-move-n1",
+      "nodeIds": [
+        "tsume-three-move-n1",
+        "tsume-three-move-n2",
+        "tsume-three-move-n3",
+        "tsume-three-move-n4",
+        "tsume-three-move-n5",
+        "tsume-three-move-n6",
+        "tsume-three-move-n7",
+        "tsume-three-move-n8",
+        "tsume-three-move-n9",
+        "tsume-three-move-n10",
+        "tsume-three-move-n11",
+        "tsume-three-move-n12",
+        "tsume-three-move-n13",
+        "tsume-three-move-n14",
+        "tsume-three-move-n15",
+        "tsume-three-move-n16"
       ]
     }
   ],
@@ -172,13 +289,13 @@
       "id": "aigakari-n5",
       "openingFamilyId": "aigakari",
       "lineId": "aigakari-basic",
-      "sfen": "lnsgkgsnl/1r5b1/p1ppppp+Pp/9/9/9/P+pPPPPP1P/1B5R1/LNSGKGSNL b - 9",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppp+Pp/9/9/9/P+pPPPPP1P/1B5R1/LNSGKGSNL b Pp 9",
       "sideToMove": "sente",
       "expectedMovesUsi": [
         "2c3b"
       ],
-      "opponentAutoResponseUsi": null,
-      "nextNodeId": null,
+      "opponentAutoResponseUsi": "3a2b",
+      "nextNodeId": "aigakari-n6",
       "tags": [
         "終盤入口",
         "寄せ"
@@ -267,8 +384,8 @@
       "expectedMovesUsi": [
         "5i6i"
       ],
-      "opponentAutoResponseUsi": null,
-      "nextNodeId": null,
+      "opponentAutoResponseUsi": "4c4d",
+      "nextNodeId": "yagura-n6",
       "tags": [
         "完成",
         "囲い"
@@ -357,8 +474,8 @@
       "expectedMovesUsi": [
         "6a7b"
       ],
-      "opponentAutoResponseUsi": null,
-      "nextNodeId": null,
+      "opponentAutoResponseUsi": "6g6f",
+      "nextNodeId": "gote-n6",
       "tags": [
         "完成",
         "受け"
@@ -593,6 +710,814 @@
       ],
       "moveIndex": 12,
       "teachingComment": "龍（成飛車）で王手。飛車の縦横に加え斜めにも利くので、最強の攻め駒。"
+    },
+    {
+      "id": "yagura-n6",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "ln1gk1snl/1r1s2gb1/p1ppp2pp/1p3pp2/9/2PP5/PP2PPPPP/1BGS3R1/LN1K1GSNL b - 11",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5g5f"
+      ],
+      "opponentAutoResponseUsi": "6a5b",
+      "nextNodeId": "yagura-n7",
+      "tags": [
+        "矢倉",
+        "攻め準備"
+      ],
+      "moveIndex": 6,
+      "teachingComment": "５六歩 — 中央の歩を突いて攻めの準備。角の活用を見据えた一手。"
+    },
+    {
+      "id": "yagura-n7",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "ln2k1snl/1r1sg1gb1/p1ppp2pp/1p3pp2/9/2PPP4/PP3PPPP/1BGS3R1/LN1K1GSNL b - 13",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "3i4h"
+      ],
+      "opponentAutoResponseUsi": "5c5d",
+      "nextNodeId": "yagura-n8",
+      "tags": [
+        "矢倉",
+        "銀活用"
+      ],
+      "moveIndex": 7,
+      "teachingComment": "４八銀 — 右銀を上がる。腰掛け銀の形を目指して攻めの態勢を作る。"
+    },
+    {
+      "id": "yagura-n8",
+      "openingFamilyId": "yagura",
+      "lineId": "yagura-rapid",
+      "sfen": "ln2k1snl/1r1sg1gb1/p1pp3pp/1p2ppp2/9/2PPP4/PP3PPPP/1BGS1S1R1/LN1K1G1NL b - 15",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "4g4f"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "矢倉",
+        "完成"
+      ],
+      "moveIndex": 8,
+      "teachingComment": "４六歩 — 銀の進出路を開く。矢倉の攻撃態勢が整った。"
+    },
+    {
+      "id": "aigakari-n6",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkg1nl/1r4+Ps1/p1ppppp1p/9/9/9/P+pPPPPP1P/1B5R1/LNSGKGSNL b Pp 11",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "3b3a"
+      ],
+      "opponentAutoResponseUsi": "8g7g",
+      "nextNodeId": "aigakari-n7",
+      "tags": [
+        "寄せ",
+        "駒得"
+      ],
+      "moveIndex": 6,
+      "teachingComment": "と金で香を取る。守り駒を次々と剥がして攻めを続ける。"
+    },
+    {
+      "id": "aigakari-n7",
+      "openingFamilyId": "aigakari",
+      "lineId": "aigakari-basic",
+      "sfen": "lnsgkg+Pnl/1r5s1/p1ppppp1p/9/9/9/P1+pPPPP1P/1B5R1/LNSGKGSNL b P2p 13",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2h2b+"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "飛車成り",
+        "攻め"
+      ],
+      "moveIndex": 7,
+      "teachingComment": "飛車を成って銀を取る。最強の攻め駒で敵陣を制圧する。"
+    },
+    {
+      "id": "gote-n6",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "ln2k1snl/1rgs2gb1/p1pppp1pp/1p4p2/9/2PP3P1/PP2PPP1P/1BGS3R1/LN2KGSNL w - 12",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "5a4b"
+      ],
+      "opponentAutoResponseUsi": "3i3h",
+      "nextNodeId": "gote-n7",
+      "tags": [
+        "後手",
+        "玉移動"
+      ],
+      "moveIndex": 6,
+      "teachingComment": "４二玉 — 玉を右に寄せて囲いに入る準備。安全な位置を目指す。"
+    },
+    {
+      "id": "gote-n7",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-static-basic",
+      "sfen": "ln4snl/1rgs1kgb1/p1pppp1pp/1p4p2/9/2PP3P1/PP2PPP1P/1BGS2SR1/LN2KG1NL w - 14",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "4b4a"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "後手",
+        "囲い完成"
+      ],
+      "moveIndex": 7,
+      "teachingComment": "４一玉 — 玉が奥に入って安全になった。これで攻めに集中できる。"
+    },
+    {
+      "id": "shikenbisha-basic-n1",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7g7f"
+      ],
+      "opponentAutoResponseUsi": "3c3d",
+      "nextNodeId": "shikenbisha-basic-n2",
+      "tags": [
+        "振り飛車",
+        "角道"
+      ],
+      "moveIndex": 1,
+      "teachingComment": "７六歩 — 角道を開ける。四間飛車の序盤第一歩。"
+    },
+    {
+      "id": "shikenbisha-basic-n2",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6g6f"
+      ],
+      "opponentAutoResponseUsi": "8c8d",
+      "nextNodeId": "shikenbisha-basic-n3",
+      "tags": [
+        "振り飛車",
+        "角止め"
+      ],
+      "moveIndex": 2,
+      "teachingComment": "６六歩 — 角道を止める。振り飛車の形に進む意思表示。"
+    },
+    {
+      "id": "shikenbisha-basic-n3",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B5R1/LNSGKGSNL b - 5",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2h6h"
+      ],
+      "opponentAutoResponseUsi": "4a3b",
+      "nextNodeId": "shikenbisha-basic-n4",
+      "tags": [
+        "四間飛車",
+        "飛車振り"
+      ],
+      "moveIndex": 3,
+      "teachingComment": "６八飛 — 飛車を四間（6筋）に振る！これが四間飛車の名前の由来。"
+    },
+    {
+      "id": "shikenbisha-basic-n4",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1B1R5/LNSGKGSNL b - 7",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7i7h"
+      ],
+      "opponentAutoResponseUsi": "7a6b",
+      "nextNodeId": "shikenbisha-basic-n5",
+      "tags": [
+        "美濃囲い",
+        "銀"
+      ],
+      "moveIndex": 4,
+      "teachingComment": "７八銀 — 美濃囲いの準備。銀が玉の守りの壁になる。"
+    },
+    {
+      "id": "shikenbisha-basic-n5",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "ln1gk1snl/1r1s2gb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1BSR5/LN1GKGSNL b - 9",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5i4h"
+      ],
+      "opponentAutoResponseUsi": "5a4b",
+      "nextNodeId": "shikenbisha-basic-n6",
+      "tags": [
+        "美濃囲い",
+        "玉移動"
+      ],
+      "moveIndex": 5,
+      "teachingComment": "４八玉 — 玉を右に寄せて美濃囲いに向かう。"
+    },
+    {
+      "id": "shikenbisha-basic-n6",
+      "openingFamilyId": "furibisha",
+      "lineId": "shikenbisha-basic",
+      "sfen": "ln1g2snl/1r1s1kgb1/p1pppp1pp/1p4p2/9/2PP5/PP2PPPPP/1BSR1K3/LN1G1GSNL b - 11",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "4h3h"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "美濃囲い",
+        "完成"
+      ],
+      "moveIndex": 6,
+      "teachingComment": "３八玉 — 美濃囲いに玉が入城。金銀の守りで安全になった。"
+    },
+    {
+      "id": "kakugawari-basic-n1",
+      "openingFamilyId": "kakugawari",
+      "lineId": "kakugawari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7g7f"
+      ],
+      "opponentAutoResponseUsi": "8c8d",
+      "nextNodeId": "kakugawari-basic-n2",
+      "tags": [
+        "角換わり",
+        "角道"
+      ],
+      "moveIndex": 1,
+      "teachingComment": "７六歩 — 角道を開ける。角換わりの基本形に進む第一歩。"
+    },
+    {
+      "id": "kakugawari-basic-n2",
+      "openingFamilyId": "kakugawari",
+      "lineId": "kakugawari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2g2f"
+      ],
+      "opponentAutoResponseUsi": "3c3d",
+      "nextNodeId": "kakugawari-basic-n3",
+      "tags": [
+        "角換わり",
+        "飛車先"
+      ],
+      "moveIndex": 2,
+      "teachingComment": "２六歩 — 飛車先の歩を突く。相居飛車の積極的な布陣。"
+    },
+    {
+      "id": "kakugawari-basic-n3",
+      "openingFamilyId": "kakugawari",
+      "lineId": "kakugawari-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 5",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "8h2b+"
+      ],
+      "opponentAutoResponseUsi": "3a2b",
+      "nextNodeId": "kakugawari-basic-n4",
+      "tags": [
+        "角換わり",
+        "角交換"
+      ],
+      "moveIndex": 3,
+      "teachingComment": "２二角成 — 角を交換する！互いに角を持ち駒にして打ち込みを狙う戦い。"
+    },
+    {
+      "id": "kakugawari-basic-n4",
+      "openingFamilyId": "kakugawari",
+      "lineId": "kakugawari-basic",
+      "sfen": "lnsgkg1nl/1r5s1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/7R1/LNSGKGSNL b Bb 7",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7i6h"
+      ],
+      "opponentAutoResponseUsi": "6a7b",
+      "nextNodeId": "kakugawari-basic-n5",
+      "tags": [
+        "角換わり",
+        "銀上がり"
+      ],
+      "moveIndex": 4,
+      "teachingComment": "６八銀 — 銀を上がって守りを固める。角交換後の基本形。"
+    },
+    {
+      "id": "kakugawari-basic-n5",
+      "openingFamilyId": "kakugawari",
+      "lineId": "kakugawari-basic",
+      "sfen": "lns1kg1nl/1rg4s1/p1pppp1pp/1p4p2/9/2P4P1/PP1PPPP1P/3S3R1/LN1GKGSNL b Bb 9",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "3i3h"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "角換わり",
+        "完成"
+      ],
+      "moveIndex": 5,
+      "teachingComment": "３八銀 — 右銀を活用。攻守バランスの取れた角換わりの基本形が完成。"
+    },
+    {
+      "id": "nakabisha-basic-n1",
+      "openingFamilyId": "nakabisha",
+      "lineId": "nakabisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5g5f"
+      ],
+      "opponentAutoResponseUsi": "8c8d",
+      "nextNodeId": "nakabisha-basic-n2",
+      "tags": [
+        "中飛車",
+        "中央"
+      ],
+      "moveIndex": 1,
+      "teachingComment": "５六歩 — 中央の歩を突く。中飛車戦法のスタート。"
+    },
+    {
+      "id": "nakabisha-basic-n2",
+      "openingFamilyId": "nakabisha",
+      "lineId": "nakabisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/4P4/PPPP1PPPP/1B5R1/LNSGKGSNL b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "2h5h"
+      ],
+      "opponentAutoResponseUsi": "3c3d",
+      "nextNodeId": "nakabisha-basic-n3",
+      "tags": [
+        "中飛車",
+        "飛車振り"
+      ],
+      "moveIndex": 2,
+      "teachingComment": "５八飛 — 飛車を5筋に振る！中飛車の名前の由来。中央制圧を狙う。"
+    },
+    {
+      "id": "nakabisha-basic-n3",
+      "openingFamilyId": "nakabisha",
+      "lineId": "nakabisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/4P4/PPPP1PPPP/1B2R4/LNSGKGSNL b - 5",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "7g7f"
+      ],
+      "opponentAutoResponseUsi": "8d8e",
+      "nextNodeId": "nakabisha-basic-n4",
+      "tags": [
+        "中飛車",
+        "角道"
+      ],
+      "moveIndex": 3,
+      "teachingComment": "７六歩 — 角道を開けて角の利きを通す。攻めの幅を広げる。"
+    },
+    {
+      "id": "nakabisha-basic-n4",
+      "openingFamilyId": "nakabisha",
+      "lineId": "nakabisha-basic",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1p7/2P1P4/PP1P1PPPP/1B2R4/LNSGKGSNL b - 7",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6g6f"
+      ],
+      "opponentAutoResponseUsi": "4a3b",
+      "nextNodeId": "nakabisha-basic-n5",
+      "tags": [
+        "中飛車",
+        "歩"
+      ],
+      "moveIndex": 4,
+      "teachingComment": "６六歩 — 角道を止めて形を安定させる。中飛車の基本形。"
+    },
+    {
+      "id": "nakabisha-basic-n5",
+      "openingFamilyId": "nakabisha",
+      "lineId": "nakabisha-basic",
+      "sfen": "lnsgk1snl/1r4gb1/p1pppp1pp/6p2/1p7/2PPP4/PP3PPPP/1B2R4/LNSGKGSNL b - 9",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5f5e"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "中飛車",
+        "攻め"
+      ],
+      "moveIndex": 5,
+      "teachingComment": "５五歩 — 中央を突き越して位を取る。飛車と協力して中央突破を狙う。"
+    },
+    {
+      "id": "gote-vs-furibisha-n1",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-vs-furibisha",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "8c8d"
+      ],
+      "opponentAutoResponseUsi": "6g6f",
+      "nextNodeId": "gote-vs-furibisha-n2",
+      "tags": [
+        "対振り飛車",
+        "飛車先"
+      ],
+      "moveIndex": 1,
+      "teachingComment": "８四歩 — 飛車先の歩を突いて居飛車の姿勢を示す。"
+    },
+    {
+      "id": "gote-vs-furibisha-n2",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-vs-furibisha",
+      "sfen": "lnsgkgsnl/1r5b1/p1ppppppp/1p7/9/3P5/PPP1PPPPP/1B5R1/LNSGKGSNL w - 4",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "3c3d"
+      ],
+      "opponentAutoResponseUsi": "2h6h",
+      "nextNodeId": "gote-vs-furibisha-n3",
+      "tags": [
+        "対振り飛車",
+        "角道"
+      ],
+      "moveIndex": 2,
+      "teachingComment": "３四歩 — 角道を開けて反撃の含みを持たせる。"
+    },
+    {
+      "id": "gote-vs-furibisha-n3",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-vs-furibisha",
+      "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/9/3P5/PPP1PPPPP/1B1R5/LNSGKGSNL w - 6",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "6a7b"
+      ],
+      "opponentAutoResponseUsi": "7i7h",
+      "nextNodeId": "gote-vs-furibisha-n4",
+      "tags": [
+        "対振り飛車",
+        "銀"
+      ],
+      "moveIndex": 3,
+      "teachingComment": "７二銀 — 左銀を活用。飛車先攻めに備える守りの一手。"
+    },
+    {
+      "id": "gote-vs-furibisha-n4",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-vs-furibisha",
+      "sfen": "lns1kgsnl/1rg4b1/p1pppp1pp/1p4p2/9/3P5/PPP1PPPPP/1BSR5/LN1GKGSNL w - 8",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "4a3b"
+      ],
+      "opponentAutoResponseUsi": "5i4h",
+      "nextNodeId": "gote-vs-furibisha-n5",
+      "tags": [
+        "対振り飛車",
+        "金"
+      ],
+      "moveIndex": 4,
+      "teachingComment": "３二金 — 角頭を守る。振り飛車の角筋攻めに備える重要な一手。"
+    },
+    {
+      "id": "gote-vs-furibisha-n5",
+      "openingFamilyId": "gote-structures",
+      "lineId": "gote-vs-furibisha",
+      "sfen": "lns1k1snl/1rg3gb1/p1pppp1pp/1p4p2/9/3P5/PPP1PPPPP/1BSR1K3/LN1G1GSNL w - 10",
+      "sideToMove": "gote",
+      "expectedMovesUsi": [
+        "5a4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "対振り飛車",
+        "玉移動"
+      ],
+      "moveIndex": 5,
+      "teachingComment": "４二玉 — 玉を右に寄せて舟囲いを目指す。対振り飛車の基本形。"
+    },
+    {
+      "id": "tsume-three-move-n1",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/4G4/9/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c5b"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n2",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "頭金"
+      ],
+      "moveIndex": 1,
+      "teachingComment": "金で王手！玉を端に追い詰める。"
+    },
+    {
+      "id": "tsume-three-move-n2",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/4G4/9/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "頭金"
+      ],
+      "moveIndex": 2,
+      "teachingComment": "さらに金を打って頭金の詰み。逃げ場がない。"
+    },
+    {
+      "id": "tsume-three-move-n3",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "3k5/9/3G5/9/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6c5b"
+      ],
+      "opponentAutoResponseUsi": "6a5b",
+      "nextNodeId": "tsume-three-move-n4",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "送り"
+      ],
+      "moveIndex": 3,
+      "teachingComment": "金を捨てて玉を引きずり出す！"
+    },
+    {
+      "id": "tsume-three-move-n4",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "9/4k4/9/9/9/9/9/9/4K4 b Gg 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*6b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "送り"
+      ],
+      "moveIndex": 4,
+      "teachingComment": "持ち駒の金を打って詰み。玉の退路がない。"
+    },
+    {
+      "id": "tsume-three-move-n5",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/9/9/9/9/9/4R4/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*5b"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n6",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "退路封鎖"
+      ],
+      "moveIndex": 5,
+      "teachingComment": "金を打って退路を封鎖！玉は横に逃げるしかない。"
+    },
+    {
+      "id": "tsume-three-move-n6",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/4G4/9/9/9/9/9/4R4/4K4 b - 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5h4h"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "退路封鎖"
+      ],
+      "moveIndex": 6,
+      "teachingComment": "飛車を寄せて詰み。金と飛車の連携で逃げ場なし。"
+    },
+    {
+      "id": "tsume-three-move-n7",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/9/4N4/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5d6b+"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n8",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "桂"
+      ],
+      "moveIndex": 7,
+      "teachingComment": "桂馬で王手！斜めに飛ぶ独特の動きで玉を追う。"
+    },
+    {
+      "id": "tsume-three-move-n8",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/3+N5/9/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "桂"
+      ],
+      "moveIndex": 8,
+      "teachingComment": "金を打って詰み。桂馬が退路を塞いでいる。"
+    },
+    {
+      "id": "tsume-three-move-n9",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/9/9/9/9/4L4/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5g5b"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n10",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "香"
+      ],
+      "moveIndex": 9,
+      "teachingComment": "香車の直進で王手！玉は横に逃げるしかない。"
+    },
+    {
+      "id": "tsume-three-move-n10",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/4L4/9/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "香"
+      ],
+      "moveIndex": 10,
+      "teachingComment": "金を打って詰み。香車が背後を睨んでいる。"
+    },
+    {
+      "id": "tsume-three-move-n11",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/9/4S4/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5d4c"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n12",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "銀"
+      ],
+      "moveIndex": 11,
+      "teachingComment": "銀で斜め王手！玉を端に追い込む。"
+    },
+    {
+      "id": "tsume-three-move-n12",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/9/5S3/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*5a"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "銀"
+      ],
+      "moveIndex": 12,
+      "teachingComment": "金を打って詰み。銀と金で挟み撃ち。"
+    },
+    {
+      "id": "tsume-three-move-n13",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/4R4/9/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "5c5b"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n14",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "飛車"
+      ],
+      "moveIndex": 13,
+      "teachingComment": "飛車で一段目に王手！玉は横に逃げる。"
+    },
+    {
+      "id": "tsume-three-move-n14",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/4R4/9/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "飛車"
+      ],
+      "moveIndex": 14,
+      "teachingComment": "金を打って頭金の詰み。飛車が横利きで退路を塞ぐ。"
+    },
+    {
+      "id": "tsume-three-move-n15",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "4k4/9/9/3B5/9/9/9/9/4K4 b G 1",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "6d5c"
+      ],
+      "opponentAutoResponseUsi": "5a4a",
+      "nextNodeId": "tsume-three-move-n16",
+      "tags": [
+        "詰将棋",
+        "3手",
+        "角"
+      ],
+      "moveIndex": 15,
+      "teachingComment": "角で斜め王手！玉を端に追い詰める。"
+    },
+    {
+      "id": "tsume-three-move-n16",
+      "openingFamilyId": "tsume-3",
+      "lineId": "tsume-three-move",
+      "sfen": "5k3/9/4B4/9/9/9/9/9/4K4 b G 3",
+      "sideToMove": "sente",
+      "expectedMovesUsi": [
+        "G*4b"
+      ],
+      "opponentAutoResponseUsi": null,
+      "nextNodeId": null,
+      "tags": [
+        "詰将棋",
+        "3手",
+        "角"
+      ],
+      "moveIndex": 16,
+      "teachingComment": "金を打って詰み。角の利きで退路を塞いでいる。"
     }
   ]
 }

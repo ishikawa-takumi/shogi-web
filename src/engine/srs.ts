@@ -1,5 +1,7 @@
 import type { ReviewCard, EaseStep } from "../types/index.ts";
 
+export const MASTERY_THRESHOLD: EaseStep = 4;
+
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 function addDaysToIso(isoString: string, days: number): string {
@@ -142,7 +144,7 @@ export function calculateStreak(sessionDates: string[], today: string): number {
   if (!dateSet.has(today)) return 0;
 
   let streak = 0;
-  let current = new Date(today + "T00:00:00Z");
+  const current = new Date(today + "T00:00:00Z");
 
   while (true) {
     const dateStr = current.toISOString().slice(0, 10);
