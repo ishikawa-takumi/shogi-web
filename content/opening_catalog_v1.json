@@ -397,19 +397,19 @@
       "id": "gote-n1",
       "openingFamilyId": "gote-structures",
       "lineId": "gote-static-basic",
-      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 2",
       "sideToMove": "gote",
       "expectedMovesUsi": [
         "3c3d"
       ],
-      "opponentAutoResponseUsi": "7g7f",
+      "opponentAutoResponseUsi": null,
       "nextNodeId": "gote-n2",
       "tags": [
         "後手",
         "受け"
       ],
       "moveIndex": 1,
-      "teachingComment": "３四歩 — 角道を開ける。後手番でも積極的に指す基本の第一手。"
+      "teachingComment": "先手の７六歩に対し３四歩と角道を開ける。後手番の積極的な第一歩。"
     },
     {
       "id": "gote-n2",
@@ -1129,19 +1129,19 @@
       "id": "gote-vs-furibisha-n1",
       "openingFamilyId": "gote-structures",
       "lineId": "gote-vs-furibisha",
-      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
+      "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/3P5/PPP1PPPPP/1B5R1/LNSGKGSNL w - 2",
       "sideToMove": "gote",
       "expectedMovesUsi": [
         "8c8d"
       ],
-      "opponentAutoResponseUsi": "6g6f",
+      "opponentAutoResponseUsi": null,
       "nextNodeId": "gote-vs-furibisha-n2",
       "tags": [
         "対振り飛車",
         "飛車先"
       ],
       "moveIndex": 1,
-      "teachingComment": "８四歩 — 飛車先の歩を突いて居飛車の姿勢を示す。"
+      "teachingComment": "先手の６六歩に対し８四歩と飛車先を突いて居飛車の姿勢を示す。"
     },
     {
       "id": "gote-vs-furibisha-n2",
