@@ -247,24 +247,28 @@ export function ShogiBoard({
               )}
 
               {/* Piece (rendered before click target so it doesn't steal events) */}
-              {sq && (
-                <g className={`piece ${sq.owner === "gote" ? "gote-piece" : "sente-piece"}`} style={{ pointerEvents: "none" }}>
-                  <path
-                    d={pentagonPath(cx, cy, CELL, sq.owner === "gote")}
-                    className="piece-shape"
-                  />
-                  <text
-                    x={cx}
-                    y={cy + 1}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    className={`piece-kanji ${sq.promoted ? "promoted" : ""}`}
-                    fontSize="22"
-                  >
-                    {pieceKanji(sq.pieceType, sq.promoted)}
-                  </text>
-                </g>
-              )}
+              {sq && (() => {
+                const isOpponent = sq.owner !== orientation;
+                return (
+                  <g className={`piece ${sq.owner === "gote" ? "gote-piece" : "sente-piece"}`} style={{ pointerEvents: "none" }}>
+                    <path
+                      d={pentagonPath(cx, cy, CELL, isOpponent)}
+                      className="piece-shape"
+                    />
+                    <text
+                      x={cx}
+                      y={cy + 1}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      className={`piece-kanji ${sq.promoted ? "promoted" : ""}`}
+                      fontSize="22"
+                      transform={isOpponent ? `rotate(180, ${cx}, ${cy + 1})` : undefined}
+                    >
+                      {pieceKanji(sq.pieceType, sq.promoted)}
+                    </text>
+                  </g>
+                );
+              })()}
 
               {/* Legal move dot */}
               {isLegal && !sq && (
